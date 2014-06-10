@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ tinymce_init() }}
+{% endblock %}
+
+		{% block main %}
+		<div class="row main-row">
+
+
+					<div class="3u">						
+						<section>
+							{{ include(
+							    'SalesianosMainBundle:Main:menu_ofertas.html.twig',
+							    { 'activo': activo }
+							) }}
+							
+						</section>					
+					</div>
+
+					<div class="9u">						
+						<section>
+							<h2>Nueva Oferta</h2>
+
+							{% if form is defined %}
+								{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+								<div id="form_oferta">
+									{{ form(form) }}
+								</div>
+							{% else %}
+								{% if resultado is defined %}
+									{% if resultado %}
+										<p>Tu oferta ha sido publicada.</p>
+										<a href="{{path('salesianos_main_misofertas')}}">Ver mis ofertas </a> / 
+										<a href="{{path('salesianos_main_nueva_oferta')}}"> Publicar otra</a>
+										<br><br><br><br>
+									{% else %}
+										<p>Ha ocurrido un error con tu oferta. Inténtalo de nuevo o ponte en contacto con nosotros.</p>
+										<a href="{{path('salesianos_main_nueva_oferta')}}">Nueva oferta </a> / 
+										<a href="{{path('salesianos_main_contacto')}}"> Contacto</a>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						</section>
+					</div>
+
+				</div>
+
+
+		{% endblock %}

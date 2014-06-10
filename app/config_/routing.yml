@@ -1,0 +1,4 @@
+salesianos_main:
+    resource: "@SalesianosMainBundle/Resources/config/routing.yml"
+    prefix:   /
+

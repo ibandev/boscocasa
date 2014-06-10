@@ -1,0 +1,22 @@
+{% if is_granted("ROLE_ADMIN") %}
+
+{% else %}
+	{% if oferta.hasFinished() %}	
+		<span class="right orange">Finalizada</span>
+	{% else %}	
+		{% if is_granted("ROLE_ALUMNO") %}
+			<a id="btn{{ oferta.getId() }}" href="{{ path('salesianos_main_inscripcion',{ 'id_oferta': oferta.getId()}) }}" class="button right inscripcion">Inscribirme</a>
+			{% for candidato in oferta.getCandidatos() %}
+				{% if candidato.getUsuario().getId() == app.user.getId() %}		
+					<span class="right orange">Ya estás inscrito</span>
+					<script type="text/javascript">
+						$('#btn{{ oferta.getId() }}').hide();
+					</script>
+				{% endif %}
+			{% endfor %}				
+		{% elseif is_granted("ROLE_EMPRESA") and (app.user.getId() == oferta.getEmpresa().getUsuario().getId()) %}
+			<a href="{{ path('salesianos_main_verinscritos',{ 'id_oferta': oferta.getId()}) }}" class="button right">Ver inscritos</a>
+		{% endif %}
+	{% endif %}
+{% endif %}
+

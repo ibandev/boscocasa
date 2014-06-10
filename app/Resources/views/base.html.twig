@@ -1,0 +1,185 @@
+{# app/Resources/views/base.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <title>{% block title %}{{ nombre_web }} - Portal de Empleo Salesianos Cádiz{% endblock %}</title>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+            <meta name="description" content="Portal de Empleo para alumnos de Salesianos" />
+            <meta name="keywords" content="" />
+            <link href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+
+            {% block javascripts %}
+                <script src={{asset('bundles/salesianosmain/js/jquery.min.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/config.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/skel.min.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/skel-panels.js')}}></script>
+                {# Script para manejar el menú superior #}
+                <script type="text/javascript">                    
+                    $(document).ready(function() {                      
+                        if($(location).attr('href').indexOf('perfil')>=0){
+                            $('#perfil').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('oferta')>=0){
+                            $('#ofertas').addClass('current-page-item');
+                            return;
+                        }
+                        // if($(location).attr('href').indexOf('empresas')>=0){
+                        //     $('#empresas').addClass('current-page-item');
+                        //     return;
+                        // }
+                        if($(location).attr('href').indexOf('blog')>=0){
+                            $('#blog').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('contacto')>=0){
+                            $('#contacto').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('login')>=0){
+                            $('#login').addClass('current-page-item');
+                            return;
+                        }
+                        $('#inicio').addClass('current-page-item');
+                        return;
+                    });
+                </script>
+
+            {% endblock %}
+            {% block stylesheets %}
+            <noscript>
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/skel-noscript.css')}} />
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/style.css')}} />
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/style-desktop.css')}} />
+            </noscript>
+            {% endblock %}
+            <!--[if lte IE 9]><link rel="stylesheet" href={{asset('bundles/salesianosmain/css/ie9.css')}} /><![endif]-->
+            <!--[if lte IE 8]><script src={{asset('bundles/salesianosmain/js/html5shiv.js')}}></script><![endif]-->
+        {% endblock %}
+    </head>
+    <body>
+    <!-- ********************************************************* -->
+    {% block menu %}
+        <div id="header-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="12u">
+                        
+                        <header id="header">
+                            <h1><a href="{{ path('salesianos_main_homepage') }}" id="logo">boscoempleo.com</a></h1>
+                            <nav id="nav">
+                                <a id="inicio" href="{{ path('salesianos_main_homepage') }}">Inicio</a>
+                                <a id="perfil" href="{{ path('salesianos_main_miperfil') }}">Mi Perfil</a>
+                                <a id="ofertas" href="{{ path('salesianos_main_ofertas') }}">Ofertas</a>
+                                <!-- <a id="empresas" href="{{ path('salesianos_main_empresas') }}">Empresas</a> -->
+                                <a id="blog" href="{{ path('salesianos_main_blog') }}">Blog</a>                   
+                                <a id="contacto" href="{{ path('salesianos_main_contacto') }}">Contacto</a>                                
+                                    {% if is_granted('ROLE_USER') %} 
+                                    <a id="login" href="{{ path('fos_user_security_logout') }}" >                                   
+                                    <span class="iec_power no-mobile conectado" title="Cerrar Sesión">&#x23FB;</span>
+                                    {% else %}
+                                    <a id="login" href="{{ path('fos_user_security_login') }}" >
+                                    <span class="iec_power no-mobile desconectado" title="Iniciar Sesión">&#x23FB;</span>
+                                    {% endif %}
+                                    <span class="mobile-only">Iniciar / Cerrar sesión</span>
+                                    </a>                                
+                            </nav>
+                        </header>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock menu %}
+
+        {% block banner %}
+        {% endblock banner %}
+        
+        <div id="main">
+            <div class="container">
+
+        {% block main %}        
+        {% endblock %}
+
+            </div>
+        </div>
+
+
+    {% block footer %}
+        <div id="footer-wrapper">
+            <div class="container">
+                <div class="row">
+
+                    <div class="8u">                        
+                        <section>                            
+                            <div>
+                                <div class="row">
+
+                                    <div class="3u">
+                                        <ul class="link-list">
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="3u">
+                                        <ul class="link-list">
+                                            <h3>Acceso rápido</h3>
+                                            <li><a href="{{ path('salesianos_main_miperfil') }}">Mi perfil</a></li>
+                                            <li><a href="{{ path('salesianos_main_misofertas') }}">Mis ofertas</a></li>                                      
+                                            {% if is_granted("ROLE_ALUMNO") %}
+                                                <li><a href="{{ path('salesianos_main_cv') }}">Mi curriculum</a></li>
+                                            {% endif %}
+                                            {% if is_granted("ROLE_EMPRESA") %}
+                                                <li><a href="{{ path('salesianos_main_nueva_oferta') }}">Publicar oferta</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="3u">
+                                        <ul class="link-list">
+                                            <h3>Bolsas de empleo</h3>                                            
+                                            <li><a href="http://www.infojobs.net" target="_blank">InfoJobs.net</a></li>
+                                            <li><a href="http://www.infoempleo.com/" target="_blank">InfoEmpleo.com</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="3u">
+                                        <ul class="link-list">
+                                            <h3>Salesianos</h3>
+                                            <li><a href="http://www.salesianos-cadiz.com" target="_blank">Salesianos Cádiz</a></li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </section>                    
+                    </div>
+
+                    <div class="4u">
+                        <section>                            
+                            <p>Colegio Salesianos 'San Ignacio'<br>
+                               Avda. María Auxiliadora, 7<br>
+                               CP 11009, Cádiz<br>
+                               Tlf : 956 22 22 22</p>
+                            <footer class="controls">
+                                <a class="button" href="{{ path('salesianos_main_contacto') }}">Contactar</a>
+                            </footer>
+                        </section>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="12u">
+
+                        <div id="copyright">
+                            &copy; boscoempleo.com &middot; Desarrollado por Ibán Rincón.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock footer %}
+    <!-- ********************************************************* -->
+    </body>
+</html>

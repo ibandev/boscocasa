@@ -1,0 +1,141 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href={{asset('bundles/salesianosmain/js/nivo-slider/nivo-slider.css')}} />
+<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+<style>
+.fin{display:none;}
+</style>
+{% endblock stylesheets %}
+{% block javascripts %}
+{{ parent() }}
+<script src={{asset('bundles/salesianosmain/js/nivo-slider/jquery.nivo.slider.pack.js')}}></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#slider').nivoSlider({
+	        effect: 'sliceDownLeft',        // Specify sets like: 'fold,fade,sliceDown'
+	        slices: 16,                     // For slice animations
+	        boxCols: 8,                     // For box animations
+	        boxRows: 4,                     // For box animations
+	        animSpeed: 1000,                 // Slide transition speed
+	        pauseTime: 6000,                // How long each slide will show
+	        directionNav: false,            // Next & Prev navigation
+	        controlNav: false,              // 1,2,3... navigation
+	        controlNavThumbs: false,        // Use thumbnails for Control Nav
+	    });
+	});
+</script>
+
+<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox({
+			arrows        : false,
+			scrolling     : 'auto',	
+			type		  : 'inline',
+			wrapCSS		  : 'fancy_custom',
+			// Activa/desactiva el menú superior en dispositivos móviles
+			// para que pueda mostrarse el fancybox completo
+			afterClose : function() {
+					        $('#titleBar').show();
+					        return;
+					    },
+			beforeShow : function() {
+					        $('#titleBar').hide();
+					        return;
+			    		},
+		});
+	});
+</script>
+{# Script para la carga correcta de los párrafos justificados #}
+<script type="text/javascript">                    
+    $(document).ready(function() {                        
+        $('.blog-post p').attr("style","text-align:justify;");
+    });
+</script>
+
+{% endblock %}
+
+		{% block banner %}
+             <div id="banner-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="12u">
+                            <div id="slider" class="nivoSlider">
+                            	<img src={{asset('bundles/salesianosmain/images/estudiantes.jpg')}} alt="Alumnos" />
+                                <img src={{asset('bundles/salesianosmain/images/formacion.jpg')}} alt="Empresas" />                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock banner %}
+        
+		{% block main %}		
+
+				<div class="row main-row">
+					
+					<div class="6u">
+						
+						<section>
+							<h2>Bienvenido a {{ nombre_web }}</h2>
+							<p>Esto es <strong>{{ nombre_web }}</strong>, un portal de empleo creado especialmente para
+							alumnos y antiguos alumnos de Salesianos. Desde aquí puedes buscar ofertas de empleo y enviar tu currículum a las empresas.</p>
+							<footer class="controls">
+								<a href="{{ path('salesianos_main_miperfil') }}" class="button">Iniciar Sesión</a>
+							</footer>
+						</section>
+					
+					</div>
+					<div class="6u">						
+						<section>
+							<h2>Empresas</h2>
+							<p>Si eres una empresa y todavía no te has registrado entra por aquí,
+							rellena tu perfil y empieza a publicar ofertas.<br><br></p>
+							<footer class="controls">
+								<a href="{{ path('salesianos_main_nueva_empresa') }}" class="button">Nueva Empresa</a>
+							</footer>
+						</section>
+					
+					</div>
+
+				</div>
+				<div class="row main-row">
+
+					
+
+					<div class="6u">					
+						<section>
+							<h2>Ofertas recientes</h2>
+							<ul class="big-image-list">
+								{% for oferta in ofertas %}
+									{% if not oferta.hasFinished() %}
+								        {{ include(
+								            'SalesianosMainBundle:Main:oferta_mini.html.twig',
+								            { 'oferta': oferta }
+								        ) }}
+								    {% endif %}
+								{% endfor %}
+							</ul>
+							<footer class="controls">
+								<a href="{{path('salesianos_main_ofertas')}}" class="button" title="Más ofertas">Ver más</a>
+							</footer>
+						</section>
+					</div>
+					<div class="6u">					
+						<article class="blog-post">
+							<h2>Blog</h2>
+							<img src="{{asset(articulo.getWebPath())}}" alt="{{ articulo.getTitulo() }}" class="top blog-post-image" />
+							<a href="{{path('salesianos_main_blog')}}"><h3>{{ articulo.getTitulo | raw }}</h3></a>
+							<div class="contenido previa">
+							{{ articulo.getPrevia(310) | raw }}
+							</div>
+							<footer class="controls">
+								<a href="{{path('salesianos_main_blog')}}" class="button">Leer más</a>
+							</footer>
+						</article>
+					</div>
+				</div>
+
+		{% endblock %}

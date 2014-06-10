@@ -1,0 +1,36 @@
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="3u">						
+						<section>
+							<p>
+								<a href="{{ path('salesianos_main_miperfil') }}">Configuración de la cuenta</a><br>
+								Datos personales<br>
+								<a href="{{ path('salesianos_main_cv') }}">Curriculum Vitae</a><br>
+							</p>
+						</section>					
+					</div>
+
+					<div class="9u">					
+						<section>
+							<h2>Datos Personales</h2>
+							<div class="form_row fuera">
+								<div class="form_label nif" width="300px">
+									<label>NIF </label>
+								</div>
+								<div class="form_widget">
+									<input value="{{ nif }}" readOnly="true"/>
+								</div>
+							</div>
+							{{ form(form) }}
+						</section>	
+					</div>
+
+				</div>
+
+
+		{% endblock %}

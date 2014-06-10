@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="3u">						
+						<section>
+							<p>
+								Configuración de cuenta<br>
+								{% if is_granted('ROLE_ALUMNO') %}
+								    <a href="{{ path('salesianos_main_datos_alumno') }}">Datos personales</a><br>
+								    <a href="{{ path('salesianos_main_cv') }}">Curriculum Vitae</a><br>
+								{% endif %}
+								{% if is_granted('ROLE_EMPRESA') %}
+								    <a href="{{ path('salesianos_main_datos_empresa') }}">Datos empresa</a><br>
+								{% endif %}						
+							</p>
+						</section>					
+					</div>
+
+					<div class="9u">					
+						<section>
+							<h2>Configuración de cuenta</h2>
+							<div id="form_cuenta">
+								<div class="form_row">
+									<div class="form_label">
+										<label>Usuario:</label>
+									</div>
+									<div class="form_widget usuario">
+										<input type="text" value="{{ app.user.username }}" readonly />
+									</div>
+								</div>
+								{% block fosuser %}
+								{% endblock fosuser %}						
+							</div>
+						</section>	
+					</div>
+
+				</div>
+
+		{% endblock %}

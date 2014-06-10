@@ -1,0 +1,82 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+
+{% block main %}
+
+		<div class="row main-row">
+
+			<div class="4u">					
+				<section>
+					{% block fos_user_content %}
+						<h2>Acceso</h2>
+						{% if error %}
+
+						    <div class="errors orange">Usuario o contraseña incorrectos</div>
+
+						{% endif %}
+						{% if is_granted("ROLE_ALUMNO") or is_granted("ROLE_EMPRESA") %}
+							<div class="login logged">
+								Sesión iniciada como {{ app.user.username }}<br><br>
+								<a class="button" href="{{ path('fos_user_security_logout') }}">Cerrar sesión</a>
+							</div>
+						{% else %}
+						<div id="form_login">
+							<form action="{{ path("fos_user_security_check") }}" method="post">
+							    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+							    <div class="form_row">
+								    <div class="form_label">
+								    	<label for="username">Usuario</label>
+								    </div>
+								    <div class="form_widget">
+								    	<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+								    </div>
+							    </div>
+
+							    <div class="form_row">
+								    <div class="form_label">
+								    	<label for="password">Contraseña</label>
+								    </div>
+								    <div class="form_widget">
+								    	<input type="password" id="password" name="_password" required="required" />
+								    </div>
+							    </div>
+
+							    <!-- <div class="form_row right">
+							    	<div class="form_label">
+							    		<label for="remember_me">Recordarme</label>
+							    	</div>
+							    	<div class="form_widget">
+							    		<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+							    	</div>							    
+								</div> -->
+
+							    <input class="button" type="submit" id="_submit" name="_submit" value="Entrar" />
+							</form>
+						</div>
+						{% endif %}
+					{% endblock fos_user_content %}
+				</section>	
+			</div>
+			<div class="4u">					
+				<section>
+					<h2>Alumnos</h2>
+					<p>¿No conoces tus datos de inicio de sesión?<br>
+						¿No recuerdas tu contraseña?<br>
+						<a href="{{ path('salesianos_main_contacto') }}">¡Contacta con nosotros!</a>
+					</p>
+				</section>	
+			</div>
+			<div class="4u">					
+				<section>
+					<h2>Empresas</h2>
+					<p>Si tu empresa ya está registrada puedes iniciar sesión en el formulario anterior.<br>
+						Si quieres registrarte sólo tienes que seguir el siguiente enlace:<br>
+						<a href="{{ path('salesianos_main_nueva_empresa') }}">Nueva Empresa</a>
+					</p>
+				</section>	
+			</div>
+
+		</div>
+
+{% endblock main %}

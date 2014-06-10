@@ -1,0 +1,93 @@
+<html>
+<head>
+</head>
+<body>
+	<div id="oferta">
+
+	<img src={{asset('uploads/empresas/logos/'~oferta.getEmpresa.getPath())}} alt="" class="logo" />
+
+	{{ include('SalesianosMainBundle:Main:boton_oferta.html.twig')}}
+
+	<table id="oferta_fancy">
+		<tr>
+			<td class="label">Puesto </td><td class="data">{{ oferta.getPuesto() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Empresa </td><td class="data">{{ oferta.getEmpresa().getNombre() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Sector </td><td class="data">{{ oferta.getSector().getNombre() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Publicada el </td><td class="data">{{ oferta.getFechaIni().format('d / m / Y') }}</td>
+		</tr>
+		<tr>
+			<td class="label">Finaliza el </td><td class="data">{{ oferta.getFechaFin().format('d / m / Y') }}</td>
+		</tr>
+		<tr>
+			<td class="titulo" colspan="2"><h3>Ubicación</h3></td>
+		</tr>
+		<tr>
+			<td class="label">Población </td><td class="data">{{ oferta.getPoblacion() }}</td>
+		</tr>	
+		<tr>
+			<td class="label">Provincia </td><td class="data">{{ oferta.getProvincia().getNombre() }}</td>
+		</tr>
+
+		{% if oferta.getTitulacion() is not empty or oferta.getExperiencia() is not empty %}
+			<tr>
+				<td class="titulo" colspan="2"><h3>Requisitos</h3></td>
+			</tr>
+			{% if oferta.getTitulacion() is not empty %}
+				<tr>
+					<td class="label">Titulación </td><td class="data">{{ oferta.getTitulacion() }}</td>
+				</tr>
+			{% endif %}
+			{% if oferta.getExperiencia() is not empty %}
+				<tr>
+					<td class="label">Experiencia </td><td class="data">{{ oferta.getExperiencia() }}</td>
+				</tr>
+			{% endif %}
+		{% endif %}
+
+		{% if oferta.getDescripcion() is not empty %}
+		<tr>
+			<td class="titulo" colspan="2"><h3>Descripción</h3></td>
+		</tr>
+		<tr>
+			<td class="data large" colspan="2">{{ oferta.getDescripcion() | raw }}</td>
+		</tr>
+		{% else %}
+			<div class="data large"></div>
+		{% endif %}
+		
+		{% if oferta.getContrato() is not empty or oferta.getJornada() is not empty or oferta.getHorario() is not empty or oferta.getSalario() is not empty %}
+			<tr>
+				<td class="titulo" colspan="2"><h3>Contrato</h3></td>
+			</tr>
+			{% if oferta.getContrato() is not empty %}
+			<tr>
+				<td class="label">Tipo </td><td class="data">{{ oferta.getContrato() }}</td>
+			</tr>
+			{% endif %}
+			{% if oferta.getSalario() is not empty %}
+			<tr>
+				<td class="label">Salario </td><td class="data">{{ oferta.getSalario() }}</td>
+			</tr>
+			{% endif %}
+			{% if oferta.getJornada() is not empty %}
+			<tr>
+				<td class="label">Jornada laboral </td><td class="data">{{ oferta.getJornada() }}</td>
+			</tr>
+			{% endif %}
+			{% if oferta.getHorario() is not empty %}
+			<tr>
+				<td class="label">Horario </td><td class="data">{{ oferta.getHorario() }}</td>
+			</tr>
+			{% endif %}
+		{% endif %}
+	</table>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+
+	<li id="{{ oferta.getId() }}" class="oferta_mini">
+		<a class="fancybox oferta" rel="group" href="#of{{ oferta.getId() }}">
+		<img src={{asset('uploads/empresas/logos/'~oferta.getEmpresa.getPath())}} alt="" class="logo left" />	
+			<div class="oferta_detalles">	
+				<table>					
+					<tr>
+						<td class="data puesto" colspan="4">{{ oferta.getPuesto() }}</td> 
+					</tr>
+					<tr>
+						<td class="label sector"><h6>Sector</h6></td><td class="data sector" colspan="3">{{ oferta.getSector().getNombre() }}</td>
+					</tr>
+					<tr>
+						<td class="label empresa"><h6>Empresa</h6></td><td class="data empresa" colspan="3">{{ oferta.getEmpresa().getNombre() }}</td> 
+					</tr>
+					<tr>
+						<td class="label ubicacion"><h6>Ubicación</h6></td><td class="data ubicacion">{{ oferta.getPoblacion() }}, {{ oferta.getProvincia().getNombre() }}</td> 
+						<td class="label fin"><h6>Finaliza el</h6></td>	<td class="data fin">{{ oferta.getFechaFin().format('d / m / y') }}</td>
+					</tr>
+				</table>
+			</div>
+		</a>
+	</li>
+		<div style="display:none">
+			<div id="of{{ oferta.getId() }}">
+				{{ include(
+				    'SalesianosMainBundle:Main:oferta.html.twig',
+				    { 'oferta': oferta }
+				) }}
+			</div>
+		</div>

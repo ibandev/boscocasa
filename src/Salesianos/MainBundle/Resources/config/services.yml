@@ -1,0 +1,22 @@
+parameters:
+#    salesianos_main.example.class: Salesianos\MainBundle\Example
+
+services:
+    salesianos_main.login:
+        class: Salesianos\MainBundle\EventListener\LoginListener
+        arguments: [@service_container, @router, @security.context, @event_dispatcher]
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: 'kernel.event_listener', event: 'security.interactive_login', method:"onSecurityInteractiveLogin"}
+
+    salesianos_main.registration:
+        class: Salesianos\MainBundle\EventListener\RegistrationListener
+        arguments: [@service_container, @router, @security.context, @event_dispatcher]
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: 'kernel.event_listener', event: 'registration.completed', method:"onRegistrationCompleted"}
+
+    salesianos.twig.acme_extension:
+        class: Salesianos\MainBundle\Twig\SiNoExtension
+        tags:
+            - { name: twig.extension }

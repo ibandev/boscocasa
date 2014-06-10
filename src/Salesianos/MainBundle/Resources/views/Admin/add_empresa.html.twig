@@ -1,0 +1,11 @@
+{% extends 'SalesianosMainBundle:Admin:blog.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ tinymce_init() }}
+{% endblock %}
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+
+		{% block contenido %}
+		<h2>Nueva empresa</h2>
+			{{ form(form) }}
+		{% endblock contenido %}

@@ -1,0 +1,127 @@
+{# app/Resources/views/adminBase.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}
+            <title>{% block title %}{{ nombre_web }} - Panel de administración{% endblock %}</title>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+            <meta name="description" content="Portal de Empleo para alumnos de Salesianos" />
+            <meta name="keywords" content="" />
+            <link href="http://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
+
+            {% block javascripts %}
+                <script src={{asset('bundles/salesianosmain/js/jquery.min.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/config.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/skel.min.js')}}></script>
+                <script src={{asset('bundles/salesianosmain/js/skel-panels.js')}}></script>                
+                {# Script para manejar el menú superior #}
+                <script type="text/javascript">                    
+                    $(document).ready(function() {                        
+                        if($(location).attr('href').indexOf('candidatos')>=0){
+                            $('#candidatos').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('ofertas')>=0){
+                            $('#ofertas').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('empresas')>=0){
+                            $('#empresas').addClass('current-page-item');
+                            return;
+                        }
+                        if($(location).attr('href').indexOf('blog')>=0){
+                            $('#blog').addClass('current-page-item');
+                            return;
+                        }
+                        $('#inicio').addClass('current-page-item');
+                        return;
+                    });
+                </script>
+            {% endblock %}
+            {% block stylesheets %}
+            <noscript>
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/skel-noscript.css')}} />
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/style.css')}} />
+                <link rel="stylesheet" href={{asset('bundles/salesianosmain/css/style-desktop.css')}} />
+            </noscript>
+            {% endblock %}
+            <!--[if lte IE 9]><link rel="stylesheet" href={{asset('bundles/salesianosmain/css/ie9.css')}} /><![endif]-->
+            <!--[if lte IE 8]><script src={{asset('bundles/salesianosmain/js/html5shiv.js')}}></script><![endif]-->
+        {% endblock %}
+    </head>
+    <body>
+    <!-- ********************************************************* -->
+    {% block menu %}
+        <div id="header-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="12u">
+                        
+                        <header id="header">
+                            <h1><a href="{{ path('salesianos_admin_homepage') }}" id="logo">boscoempleo.com &middot; Administración</a></h1>
+                            <nav id="nav">
+                                <a id="inicio" href="{{ path('salesianos_admin_homepage') }}">Inicio</a>
+                                <a id="candidatos" href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a>               
+                                <a id="empresas" href="{{ path('salesianos_admin_empresas') }}">Empresas</a>
+                                <a id="ofertas" href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a>
+                                <a id="blog" href="{{ path('salesianos_admin_blog') }}">Blog</a>                            
+                            </nav>
+                        </header>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock menu %}
+
+        {% block banner %}
+        {% endblock banner %}
+        
+        <div id="main">
+            <div class="container">
+
+                <div class="row main-row">
+                    
+                    <div class="2u">                        
+                        <section>
+                            <div id="menu izda">
+                            {% block menu_lateral %}
+                            {% endblock menu_lateral %}      
+                            </div>                      
+                        </section>                    
+                    </div>
+                    
+                    <div class="10u">                        
+                        <section>
+                            <div id="contenido dcha">
+                            {% block contenido %}
+                            {% endblock contenido %}
+                            </div>                           
+                        </section>                    
+                    </div>
+
+                </div>
+
+        {% block main %}        
+        {% endblock %}
+
+            </div>
+        </div>
+        {% block footer %}
+            <div id="footer-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="12u">
+
+                            <div id="copyright">
+                                &copy; boscoempleo.com &middot; Desarrollado por Ibán Rincón.
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock footer %}
+    <!-- ********************************************************* -->
+    </body>
+</html>

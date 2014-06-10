@@ -1,0 +1,3 @@
+<h2>{{ articulo.getTitulo() }} </h2>
+<img src="{{asset(articulo.getWebPath())}}" alt="{{ articulo.getTitulo() }}" class="top blog-post-image" />
+<div class="contenido">{{ articulo.getContenido() | raw}}</div>

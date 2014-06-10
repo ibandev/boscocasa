@@ -1,0 +1,49 @@
+html{
+	width:auto;
+	font-family: 'Roboto', sans-serif;
+}
+
+.label{
+	color:#54749C;
+	width:150px;
+	vertical-align: top;
+	font-size:0.85em;
+}
+
+.data{
+	font-size:0.85em;
+}
+
+.logo{
+	margin-bottom:10px;
+	max-width:150px;
+}
+
+.right{
+	float:right;
+}
+
+.titulo{
+	padding-top:20px;
+	color:#54749C;
+}
+
+table{
+	width:500px;
+	min-width:350px;
+	margin-bottom:20px;
+	font-size:1.1em;
+}
+
+td{
+	padding:5px 0 5px 0;
+}
+
+li{
+	padding:5px 0 5px 0;
+}
+
+#candidato_fancy ul{
+	list-style-type: circle;
+	list-style-position:inside;
+}

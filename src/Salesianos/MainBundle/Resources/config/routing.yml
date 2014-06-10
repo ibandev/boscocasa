@@ -1,0 +1,180 @@
+salesianos_main_homepage:
+    pattern:  /
+    defaults: { _controller: SalesianosMainBundle:Main:index }
+
+salesianos_main_miperfil:
+    pattern:  /miperfil
+    defaults: { _controller: SalesianosMainBundle:Main:miperfil }
+
+salesianos_main_datos_alumno:
+    pattern:  /miperfil/datospersonales
+    defaults: { _controller: SalesianosMainBundle:Main:datosalumno }
+
+salesianos_main_datos_empresa:
+    pattern:  /miperfil/datosempresa
+    defaults: { _controller: SalesianosMainBundle:Main:datosempresa }
+
+salesianos_main_nueva_empresa:
+    pattern:  /nueva_empresa
+    defaults: { _controller: FOSUserBundle:Registration:register }
+
+salesianos_main_cv:
+    pattern:  /miperfil/cv
+    defaults: { _controller: SalesianosMainBundle:Main:cv }
+
+salesianos_main_eliminarcv:
+    pattern:  /miperfil/cv/eliminar/{tipo}/{id}
+    defaults: { _controller: SalesianosMainBundle:Main:eliminarcv }
+
+salesianos_main_addcv:
+    pattern:  /miperfil/cv/añadir/{tipo}
+    defaults: { _controller: SalesianosMainBundle:Main:addcv }
+
+salesianos_main_guardarestudio:
+    pattern:  /miperfil/cv/estudio
+    defaults: { _controller: SalesianosMainBundle:Main:guardarestudio }
+
+salesianos_main_guardaridioma:
+    pattern:  /miperfil/cv/idioma
+    defaults: { _controller: SalesianosMainBundle:Main:guardaridioma }
+
+salesianos_main_guardarexperiencia:
+    pattern:  /miperfil/cv/experiencia
+    defaults: { _controller: SalesianosMainBundle:Main:guardarexperiencia }
+
+salesianos_main_guardarconocimiento:
+    pattern:  /miperfil/cv/conocimiento
+    defaults: { _controller: SalesianosMainBundle:Main:guardarconocimiento }
+
+salesianos_main_guardarotrosdatos:
+    pattern:  /miperfil/cv/otrosdatos
+    defaults: { _controller: SalesianosMainBundle:Main:guardarotrosdatos }
+
+salesianos_main_ofertas:
+    pattern:  /ofertas
+    defaults: { _controller: SalesianosMainBundle:Ofertas:ofertas }
+
+salesianos_main_oferta:
+    pattern:  /oferta/{id_oferta}
+    defaults: { _controller: SalesianosMainBundle:Ofertas:oferta }
+
+salesianos_main_inscripcion:
+    pattern:  /oferta/{id_oferta}/inscripcion
+    defaults: { _controller: SalesianosMainBundle:Ofertas:inscripcion }
+
+salesianos_main_verinscritos:
+    pattern:  /oferta/{id_oferta}/candidatos
+    defaults: { _controller: SalesianosMainBundle:Ofertas:verinscritos }
+
+salesianos_main_descargarCV:
+    pattern:  /oferta/{id_oferta}/candidato/{id_candidato}/descargar
+    defaults: { _controller: SalesianosMainBundle:Main:descargarCV }
+
+salesianos_main_descargartodosCV:
+    pattern:  /oferta/{id_oferta}/descargar
+    defaults: { _controller: SalesianosMainBundle:Main:descargartodosCV }
+
+salesianos_main_misofertas:
+    pattern:  /misofertas
+    defaults: { _controller: SalesianosMainBundle:Ofertas:misofertas }
+
+salesianos_main_nueva_oferta:
+    pattern:  /nuevaoferta
+    defaults: { _controller: SalesianosMainBundle:Ofertas:nuevaoferta }
+
+salesianos_main_publicaroferta:
+    pattern:  /publicaroferta
+    defaults: { _controller: SalesianosMainBundle:Ofertas:publicaroferta }
+
+salesianos_main_empresas:
+    pattern:  /empresas
+    defaults: { _controller: SalesianosMainBundle:Main:empresas }
+
+salesianos_main_blog:
+    pattern:  /blog
+    defaults: { _controller: SalesianosMainBundle:Blog:index }
+
+salesianos_main_showArticle:
+    pattern:  /blog/{id_articulo}
+    defaults: { _controller: SalesianosMainBundle:Blog:show }
+
+salesianos_main_contacto:
+    pattern:  /contacto
+    defaults: { _controller: SalesianosMainBundle:Main:contacto }
+
+salesianos_main_contactoSend:
+    pattern:  /contactoSend
+    defaults: { _controller: SalesianosMainBundle:Main:contactoSend }
+
+salesianos_admin_homepage:
+    pattern:  /admin
+    defaults: { _controller: SalesianosMainBundle:Admin:index }
+
+salesianos_admin_candidatos:
+    pattern:  /admin/candidatos
+    defaults: { _controller: SalesianosMainBundle:Admin:candidatosShow }
+
+salesianos_admin_candidato_remove:
+    pattern:  /admin/candidatos/borrar/{id_candidato}
+    defaults: { _controller: SalesianosMainBundle:Admin:candidatoRemove }
+
+salesianos_admin_candidato_edit:
+    pattern:  /admin/candidatos/editar/{id_candidato}
+    defaults: { _controller: SalesianosMainBundle:Admin:candidatoEdit }
+
+salesianos_admin_candidato_remove:
+    pattern:  /admin/candidatos/nuevo
+    defaults: { _controller: SalesianosMainBundle:Admin:candidatoAdd }
+
+salesianos_admin_empresas:
+    pattern:  /admin/empresas
+    defaults: { _controller: SalesianosMainBundle:Admin:empresasShow }
+
+salesianos_admin_empresa_remove:
+    pattern:  /admin/empresas/borrar/{id_empresa}
+    defaults: { _controller: SalesianosMainBundle:Admin:empresaRemove }
+
+salesianos_admin_empresa_edit:
+    pattern:  /admin/empresas/editar/{id_empresa}
+    defaults: { _controller: SalesianosMainBundle:Admin:empresaEdit }
+
+salesianos_admin_empresa_validate:
+    pattern:  /admin/empresas/validar/{id_empresa}
+    defaults: { _controller: SalesianosMainBundle:Admin:empresaValidate }
+
+salesianos_admin_empresa_add:
+    pattern:  /admin/empresas/nueva
+    defaults: { _controller: SalesianosMainBundle:Admin:empresaAdd }
+
+salesianos_admin_ofertas:
+    pattern:  /admin/ofertas
+    defaults: { _controller: SalesianosMainBundle:Admin:ofertasShow }
+
+salesianos_admin_oferta_remove:
+    pattern:  /admin/ofertas/borrar/{id_oferta}
+    defaults: { _controller: SalesianosMainBundle:Admin:ofertaRemove }
+
+salesianos_admin_oferta_edit:
+    pattern:  /admin/ofertas/editar/{id_oferta}
+    defaults: { _controller: SalesianosMainBundle:Admin:ofertaEdit }
+
+salesianos_admin_oferta_estado:
+    pattern:  /admin/ofertas/validar/{id_oferta}
+    defaults: { _controller: SalesianosMainBundle:Admin:ofertaEstado }
+
+salesianos_admin_blog:
+    pattern:  /admin/blog
+    defaults: { _controller: SalesianosMainBundle:Admin:blogShow }
+
+salesianos_admin_articulo_remove:
+    pattern:  /admin/blog/borrar/{id_articulo}
+    defaults: { _controller: SalesianosMainBundle:Admin:articuloRemove }
+
+salesianos_admin_articulo_edit:
+    pattern:  /admin/blog/editar/{id_articulo}
+    defaults: { _controller: SalesianosMainBundle:Admin:articuloEdit }
+
+salesianos_admin_articulo_add:
+    pattern:  /admin/blog/nuevo
+    defaults: { _controller: SalesianosMainBundle:Admin:articuloAdd }
+

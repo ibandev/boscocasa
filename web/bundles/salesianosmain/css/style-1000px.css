@@ -1,0 +1,111 @@
+
+/*********************************************************************************/
+/* 1000px (> 480px && < 1200px)                                                  */
+/*********************************************************************************/
+
+/* Basic */
+
+	body {
+		min-width: 960px;
+	}
+
+	.iec_power{
+	    position: static;	    
+	}
+
+/* Reusable */
+
+	ul.small-image-list img {
+		width: 50px;
+	}
+
+
+/* Header */
+
+	#header {
+		height: 52px;
+	}
+
+		#header h1 {
+			font-size: 2em;
+			line-height: 52px;
+		}
+
+		#header nav {
+			line-height: 52px;
+			font-size: 1.1em;
+			margin-top: -1px;
+		}
+		
+			#header nav a {
+				padding: 0 20px 0 20px;
+				height: 52px;
+				border-radius:40px;
+
+			}
+
+			#header nav a.current-page-item {
+				line-height: 52px;
+			}
+
+			#header nav a:hover {
+				line-height: 52px;
+			}
+
+			#header nav #login {
+				position:relative;
+				top:2px;
+			}
+
+/* Banner */
+		
+	#banner {
+		width: 960px;
+		height: 220px;
+		background-size: 960px 220px;
+	}
+
+		#banner h2 {
+			font-size: 3em;
+			top: 80px;
+		}
+
+		#banner span {
+			font-size: 1.4em;
+			bottom: 85px;
+		}
+
+/* Footer */
+	
+	#footer-wrapper {
+		padding: 5% 0 5% 0;
+	}
+
+/* Copyright */
+
+	#copyright {
+		padding: 3em 0 0 0;
+		margin: 5% 0 0 0;
+	}
+
+#oferta_fancy{
+	width:400px;
+}
+
+
+.oferta_detalles{
+	font-size: 1em;
+}
+
+.oferta_detalles td.data.ubicacion{
+	width:52%;
+}
+
+#candidato .candidato_fancy.personales{
+	margin-bottom:20px;
+	font-size:1.1em;
+}
+
+#candidato .candidato_fancy.cv{
+	width: 100%;
+}

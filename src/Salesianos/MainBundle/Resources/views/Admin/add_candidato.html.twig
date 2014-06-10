@@ -1,0 +1,7 @@
+{% extends 'SalesianosMainBundle:Admin:candidato.html.twig' %}
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+
+		{% block contenido %}
+		<h2>Nuevo candidato</h2>
+			{{ form(form) }}
+		{% endblock contenido %}

@@ -1,0 +1,32 @@
+#oferta .label{
+	color:#54749C;
+	vertical-align: top;
+	font-size:0.85em;
+}
+
+#oferta .data{
+	font-size:0.85em;
+}
+
+#oferta .data.large{
+	max-width:400px;
+}
+
+#oferta .logo{
+	margin-bottom:10px;
+	max-width:150px;
+}
+
+#oferta .right{
+	float:right;
+}
+
+#oferta .titulo{
+	padding-top:20px;
+	color:#54749C;
+}
+
+#oferta #oferta_fancy ul{
+	list-style-type: circle;
+	list-style-position:inside;
+}

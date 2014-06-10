@@ -1,0 +1,43 @@
+{% extends '::adminBase.html.twig' %}
+        
+		{% block menu_lateral %}	
+		<p>	
+			<a href="{{ path('salesianos_admin_homepage') }}">Inicio</a><br>
+			<a href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a><br>                 
+			<a href="{{ path('salesianos_admin_empresas') }}">Empresas</a><br>
+			<a href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a><br>
+			Blog<br>	
+		</p>
+		{% endblock menu_lateral %}
+
+		{% block contenido %}
+			<div id="nuevo_articulo">
+				<a href="{{path('salesianos_admin_articulo_add')}}">Escribir nuevo artículo</a>
+			</div>
+			<div id="articulos">
+				<div id="pagination_order">
+					Ordenar por: 
+					{{ knp_pagination_sortable(pagination, 'Fecha', 'a.fecha_publi') }} / 
+					{{ knp_pagination_sortable(pagination, 'Título', 'a.titulo') }}  
+					<div class="count">
+					    {{ pagination.getTotalItemCount }} artículos publicados
+					</div>		
+				</div>
+				<ul class="big-image-list">
+				{% if pagination is not null %}
+					{% for articulo in pagination %}
+					        <li class="candidato_mini">
+					        		<div class="nombre azul">{{ articulo.getFechaPubli().format('d / m / Y') }} &middot; {{ articulo.getTitulo() }}</div>
+					        		<div class="opciones">
+					        			<a href="{{path('salesianos_admin_articulo_edit', { 'id_articulo': articulo.getId() }) }}">Editar</a> / 
+					        			<a href="{{path('salesianos_admin_articulo_remove', { 'id_articulo': articulo.getId() }) }}">Eliminar</a>
+					        		</div>
+					        </li>
+					{% endfor %}
+				{% endif %}								
+				</ul>
+				<div class="navigation">
+				    {{ knp_pagination_render(pagination) }}
+				</div>	
+			</div>
+		{% endblock contenido %}

@@ -1,0 +1,79 @@
+{% extends '::adminBase.html.twig' %}
+        
+		{% block javascripts %}
+			{{ parent() }}
+			<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".fancybox").fancybox({
+						arrows        : false,
+						scrolling     : 'auto',	
+						type		  : 'inline',
+						wrapCSS		  : 'fancy_custom',
+						// Activa/desactiva el menú superior en dispositivos móviles
+						// para que pueda mostrarse el fancybox completo
+						afterClose : function() {
+								        $('#titleBar').show();
+								        return;
+								    },
+						beforeShow : function() {
+								        $('#titleBar').hide();
+								        return;
+						    		},
+					});
+				});
+			</script>
+		{% endblock javascripts %}
+		{% block stylesheets %}
+			{{ parent() }}
+			<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{% endblock stylesheets %}
+
+
+		{% block menu_lateral %}
+		<p>		
+			<a href="{{ path('salesianos_admin_homepage') }}">Inicio</a><br>
+			Candidatos<br>                
+			<a href="{{ path('salesianos_admin_empresas') }}">Empresas</a><br>
+			<a href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a><br>
+			<a href="{{ path('salesianos_admin_blog') }}">Blog</a><br>
+		</p>
+		{% endblock menu_lateral %}
+
+		{% block contenido %}
+		<div id="candidatos">
+			<div id="pagination_order">
+				Ordenar por: 
+				{{ knp_pagination_sortable(pagination, 'Apellidos', 'c.apellidos') }} / 
+				{{ knp_pagination_sortable(pagination, 'Edad', 'c.fecha_nac') }}  
+				<div class="count">
+				    {{ pagination.getTotalItemCount }} candidatos encontrados
+				</div>		
+			</div>
+			<ul class="big-image-list">
+			{% if pagination is not null %}
+				{% for candidato in pagination %}
+				        <li class="candidato_mini">
+				        		<div class="nombre"><a class="fancybox" href="#cnd{{ candidato.getId() }}">{{ candidato.getUsuario().getUsername() }} &middot; {{ candidato.getApellidos() }}, {{ candidato.getNombre() }}</a></div>
+				        		<div class="opciones">
+				        			<a href="{{path('salesianos_admin_candidato_edit', { 'id_candidato': candidato.getId() }) }}">Editar</a> / 
+				        			<a href="{{path('salesianos_admin_candidato_remove', { 'id_candidato': candidato.getId() }) }}">Eliminar</a>
+				        		</div>
+				        </li>
+				        <div style="display:none">
+				        	<div id="cnd{{ candidato.getId() }}">
+				        		{{ include(
+				        		    'SalesianosMainBundle:Main:candidato.html.twig',
+				        		    { 'candidato': candidato }
+				        		) }}
+				        	</div>
+				        </div>
+				{% endfor %}
+			{% endif %}								
+			</ul>
+			<div class="navigation">
+			    {{ knp_pagination_render(pagination) }}
+			</div>	
+		</div>
+		{% endblock contenido %}

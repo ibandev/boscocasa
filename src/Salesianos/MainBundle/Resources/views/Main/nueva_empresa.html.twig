@@ -1,0 +1,32 @@
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+
+				<div class="row main-row">
+					<div class="9u">						
+						<section>
+							<h2>Nueva Empresa</h2>
+							<h3>Primer paso: crea tu usuario</h3>
+							<div id="form_registro">
+								{% block fosuser %}
+								{% endblock fosuser %}
+							</div>
+						</section>	
+					</div>
+					<div class="3u">						
+						<section>
+							<div id="pasos">
+								<h3>Primer paso: Usuario</h3>
+								<p>Introduce un email, un nombre de usuario y una contraseña.</p>
+								</p>
+								<h3>Segundo paso: Empresa</h3>
+								<p>Rellena el perfil de la empresa.</p>
+							</div>
+						</section>	
+					</div>
+				</div>
+
+
+
+		{% endblock %}

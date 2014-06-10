@@ -1,0 +1,33 @@
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ tinymce_init() }}
+{% endblock %}
+
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="3u">						
+						<section>
+							<p>
+								<a href="{{ path('salesianos_main_miperfil') }}">Configuración de la cuenta</a><br>
+								Datos Empresa<br>
+							</p>
+							<div id="logo">
+								<img class="logo" src="{{asset(empresa.getWebPath())}}" alt="" />
+							</div>
+						</section>					
+					</div>
+
+					<div class="9u">					
+						<section>
+							<h2>Datos Empresa</h2>
+							{{ form(form) }}
+						</section>	
+					</div>
+
+				</div>
+
+		{% endblock %}

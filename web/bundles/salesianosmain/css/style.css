@@ -1,0 +1,544 @@
+
+/*********************************************************************************/
+/* Global                                                                        */
+/*********************************************************************************/
+
+/* Basic */
+
+	*,*:before,*:after{-moz-box-sizing:content-box;-webkit-box-sizing:content-box;-o-box-sizing:content-box;-ms-box-sizing:content-box;box-sizing:content-box}
+
+	body {
+		font-size: 13.5pt;
+		font-family: sans-serif;
+		background-color: #eee;
+		font-family: 'Ubuntu Condensed', sans-serif;
+		color: #989f94;
+		letter-spacing: -1px;
+	}
+	
+	h1,h2,h3,h4 {
+		color: #54749C;
+		font-weight: normal;
+	}
+
+	h2 {
+		font-size: 1.6em;
+		letter-spacing: -1px;
+		margin-bottom: 1em;
+	}
+
+	h3,h4 {
+		color: #54749C;
+		margin-bottom: 0.5em;
+	}
+
+	h3 {
+		font-size: 1.2em;
+		margin-bottom: 0.8em;
+	}
+
+	h4 {
+		font-size: 1em;
+	}
+
+	h6{
+		color:#54749C;
+		display:inline;
+	}
+
+	p, ul {
+		margin-bottom: 1.25em;
+	}
+
+	p {
+		line-height: 1.8em;
+	}
+
+	strong {
+		color: #54749C;
+		font-weight:bold;
+	}
+
+	img.left {
+		float: left;
+		margin: 13px 1.25em 0 5px;
+		position:relative;
+		bottom:8px;
+		border-radius:10px;
+	}
+
+	img.top {
+		margin: 4px 0 2.25em 0;
+	}
+
+	ul {
+		padding: 0.25em 0 0 0;
+	}
+
+	a {
+		color: #54749C;
+		text-decoration: none;
+	}
+
+	a:hover {
+		color: #7696BE;
+		text-decoration: none;
+	}
+
+	* > p:last-child {
+		margin-bottom: 0 !important;
+	}
+
+	.negrita{
+		font-weight:bold;
+	}
+
+	.orange{
+		color:#FFA500 !important;
+	}
+
+	.conectado{
+		color: #00FF00;
+	}
+
+	.desconectado{
+		color: #B40404;
+	}
+
+	.azul{
+		color: #54749C;
+	}
+
+/* Tipografía símbolos */
+
+@font-face {
+  font-family: 'iec_unicoderegular';
+  src: url('Unicode_IEC_symbol.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.iec_power{
+  font-family: 'iec_unicoderegular';
+  line-height: 52px;
+}
+
+/* Reusable */
+
+	article.blog-post {
+		position: relative;
+	}
+
+		article.blog-post .comments {
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 32px;
+			line-height: 24px;
+			padding-left: 40px;
+			background: url('images/icon-bubble.png') no-repeat;
+		}
+
+	ul.small-image-list {
+
+	}
+
+		ul.small-image-list li {
+			overflow: hidden;
+			margin-bottom: 1.5em;
+		}
+
+	ul.big-image-list {
+	}
+
+		ul.big-image-list li {
+			/*margin-bottom: 1.1em;*/
+			margin-bottom: 1em;
+		}
+
+
+
+	ul.link-list {
+
+	}
+
+		ul.link-list li {
+			border-top: solid 1px #ced0b7;
+			padding: 0.75em 0 0 0;
+			margin: 0.75em 0 0 0;
+		}
+		
+		ul.link-list li:first-child {
+			padding-top: 0;
+			margin-top: 0;
+			border-top: 0;
+		}
+
+	.button, button{
+		display: inline-block;
+		padding: 15px 25px 15px 25px;
+		background-color: #54749C;
+		background-image: -moz-linear-gradient(bottom, #43638B, #54749C);
+		background-image: -webkit-linear-gradient(bottom, #43638B, #54749C);
+		background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#43638B), to(#54749C));
+		background-image: -ms-linear-gradient(bottom, #43638B, #54749C);
+		background-image: -o-linear-gradient(bottom, #43638B, #54749C);
+		background-image: linear-gradient(bottom, #43638B, #54749C);
+		border-radius: 30px;
+		text-decoration: none;
+		font-family: 'Ubuntu Condensed', sans-serif;
+		color: #fff;
+		font-size: 1.2em;
+		letter-spacing: -1px;
+		border: solid 1px #7696BE;
+		transition: background-color 0.5s, border 0.5s;
+		margin-bottom:10px;
+	}
+
+	.button:hover, button:hover{
+		background-image: none;
+		background-color: #7696BE;
+		border: solid 1px #7696BE;
+		color: #fff;
+	}
+
+	input.button{
+		margin-top:15px;
+		padding: 12px 22px 12px 22px;
+	}
+
+
+/*  FORMULARIO DE CONTACTO  */
+
+
+textarea{
+	width:400px;
+	height:200px;
+	resize:none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+   textarea{margin-left:2px;} 
+}
+
+button{
+	margin-top:10px;
+}
+
+.form_label{
+	width:200px;
+}
+
+.form_errors{
+	color:orange;
+}
+
+#form_cuenta .form_label{
+	width:150px;
+}
+
+#form_cuenta div.form_label, #form_cuenta .form_widget{
+	display:inline-block;
+}
+
+#form_cuenta .form_widget{
+	clear:both;
+}
+#form_otros_datos .form_label{
+	width:150px;
+}
+
+#form_otros_datos div.form_label, #form_otros_datos .form_widget{
+	display:inline-block;
+}
+
+#form_otros_datos .form_widget{
+	clear:both;
+}
+
+
+
+#form_registro .form_label{
+	width:150px;
+}
+
+#pasos *{
+	line-height:1.2em;
+}
+
+/* OFERTAS */
+
+.oferta_mini{
+	border-bottom:1px solid #A6A88F;
+	background-color: #eee;
+	border-radius:10px;
+}
+
+a.fancybox.oferta{
+	color: #989f94;
+}
+
+#form_busca_ofertas .form_label{
+	width:75px;
+}
+
+.fancybox-skin{
+	background-color:#54749C;
+}
+
+#pagination_order{
+	margin-bottom:10px 0 10px 0;
+}
+
+#pagination_order a{
+	margin:0 5px 0 5px;
+}
+
+.pagination span{
+	margin:0 3px 0 3px;
+}
+
+#logo img{
+	width:20px;
+}
+
+.fancybox.oferta{
+	width: 80%;
+	font-size:0.90em;
+}
+
+.oferta_detalles{
+	vertical-align:top;
+}
+
+#cv li{
+	line-height:1.3em;
+}
+
+
+
+.eliminar{
+	color:#FFA500;
+	font-weight: bold;
+	margin-left:5px;
+
+}
+
+.eliminar:hover{
+	color:#FFB611;
+}
+
+#cv .button{
+	margin-bottom:50px;
+}
+
+/*  CV  */
+
+.lista_decorada{
+	list-style-type: circle;
+	list-style-position:inside;
+}
+
+.left_margin{
+	margin-left:15px;
+}
+
+.candidato_mini{
+	background-color: #eee;
+	padding: 5px 10px 5px 10px;
+	border-radius:5px;
+	margin-top:3px;
+}
+
+.enlaces li{
+	margin:0 0 10px 0;
+}
+
+.data.large p{
+	line-height:1.2em;
+}
+
+#candidato{
+	font-family: 'Open Sans', sans-serif;
+	line-height: 1em;
+	padding:5px;
+}
+
+#candidato .label{
+	color:#54749C;
+	width:150px;
+	vertical-align: top;
+	font-size:0.85em;
+}
+
+#candidato .data{
+	font-size:0.85em;
+}
+
+#candidato .titulo{
+	padding-top:20px;
+	color:#54749C;
+}
+
+#candidato .candidato_fancy.personales{
+	width:500px;
+	margin-bottom:20px;
+	font-size:1.1em;
+}
+
+#candidato .candidato_fancy.cv{
+	max-width:600px;
+}
+
+#candidato td{
+	padding:5px 0 5px 0;
+}
+
+#candidato li{
+	padding:5px 0 5px 0;
+	font-weight: normal;
+}
+
+#candidato #candidato_fancy ul{
+	list-style-type: circle;
+	list-style-position:inside;
+}
+
+.fancybox-inner{
+	border: 3px solid #54749C;
+}
+
+#oferta{
+	font-family: 'Open Sans', sans-serif;
+	line-height: 1em;
+	padding:5px;
+}
+
+#oferta .label{
+	color:#54749C;
+	vertical-align: top;
+	font-size:0.8em;
+	width:100px;
+}
+
+#oferta .data{
+	font-size:0.8em;
+}
+
+#oferta .data.large{
+	width:490px;
+	padding-right:10px;
+}
+
+#oferta .logo{
+	max-width:150px;
+	max-height: 100px;
+	border-radius:5px;
+	border:1px solid #eee;
+	margin-bottom: 5px;
+}
+
+#oferta .right{
+	float:right;
+}
+
+#oferta .titulo{
+	padding-top:20px;
+	color:#54749C;
+}
+
+#oferta #oferta_fancy ul{
+	list-style-type: circle;
+	list-style-position:inside;
+}
+
+.fancy_custom{
+	border: 3px solid #54749C !important;
+	border-radius: 10px;
+}
+
+.nobreak{
+	display: inline-block;
+}
+
+.blog-post-image{
+	border-radius: 10px;
+}
+
+.form_label.nif{
+	padding-right: 47px !important;
+}
+
+#form_datos_candidato_fecha_nac{
+	margin-left: -1px;
+}
+.articulo h2{
+	margin-bottom: 15px;
+	line-height: 1em;
+}
+.articulo img{
+	margin-bottom: 15px;
+}
+.articulo{
+	line-height: 1.3em;
+}
+.candidato_mini{
+	margin-bottom: 0 !important;
+	display: block;
+}
+.candidato_mini .nombre{
+	display: inline;
+}
+.candidato_mini .descarga{
+	display: inline;
+	float:right;
+}
+.candidato_mini .opciones{
+	display: inline;
+	float:right;
+}
+
+span.titulo{
+	color: red;
+}
+
+#nuevo_articulo{
+	margin-bottom: 10px;
+}
+
+.contenido{
+	padding: 5px;
+}
+.contenido p{
+	line-height: 1.2em;
+	margin-bottom: 10px;
+}
+.contenido ul{
+	list-style: circle inside;
+}
+.contenido ol{
+	list-style: decimal inside;
+}
+.contenido.previa{
+	margin-bottom: 30px;
+}
+#estadisticas td{
+	width: 220px;
+	padding: 5px;
+}
+td.label{
+	color: #54749C;
+}
+.admin.widget.half{
+	padding: 20px;
+	background-color: #eee;
+	border-radius: 20px;
+	margin-bottom: 20px;
+}
+#otros_datos td{
+	width: 220px;
+	padding: 5px;
+}
+#otros_datos{
+	margin-bottom: 20px;
+}

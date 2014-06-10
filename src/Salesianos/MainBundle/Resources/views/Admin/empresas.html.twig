@@ -1,0 +1,82 @@
+{% extends '::adminBase.html.twig' %}
+        
+        {% block javascripts %}
+        	{{ parent() }}
+        	<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+        	<script type="text/javascript">
+        		$(document).ready(function() {
+        			$(".fancybox").fancybox({
+        				arrows        : false,
+        				scrolling     : 'auto',	
+        				type		  : 'inline',
+        				wrapCSS		  : 'fancy_custom',
+        				// Activa/desactiva el menú superior en dispositivos móviles
+        				// para que pueda mostrarse el fancybox completo
+        				afterClose : function() {
+        						        $('#titleBar').show();
+        						        return;
+        						    },
+        				beforeShow : function() {
+        						        $('#titleBar').hide();
+        						        return;
+        				    		},
+        			});
+        		});
+        	</script>
+        {% endblock javascripts %}
+        {% block stylesheets %}
+			{{ parent() }}
+			<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{% endblock stylesheets %}
+		{% block menu_lateral %}	
+		<p>	
+			<a href="{{ path('salesianos_admin_homepage') }}">Inicio</a><br>
+			<a href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a><br>                 
+			Empresas<br>
+			<a href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a><br>
+			<a href="{{ path('salesianos_admin_blog') }}">Blog</a><br>
+		</p>	
+		{% endblock menu_lateral %}
+
+		{% block contenido %}
+		<div id="empresas">
+			<div id="pagination_order">
+				Ordenar por: 
+				{{ knp_pagination_sortable(pagination, 'Nombre', 'e.nombre') }} / 
+				{{ knp_pagination_sortable(pagination, 'Registro', 'e.fecha_reg') }}  
+				<div class="count">
+				    {{ pagination.getTotalItemCount }} empresas registradas
+				</div>		
+			</div>
+			<ul class="big-image-list">
+			{% if pagination is not null %}
+				{% for empresa in pagination %}
+					{% if empresa.getNombre is not null %}
+				        <li class="candidato_mini">
+				        		<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">{{ empresa.getNombre() }}</a></div>
+				        		<div class="opciones">
+				        			<a href="{{path('salesianos_admin_empresa_validate', { 'id_empresa': empresa.getId() }) }}">
+				        				{% if empresa.getValida() %}Suspender{% else %}<span class="orange">Activar</span>{% endif %}
+				        			</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_edit', { 'id_empresa': empresa.getId() }) }}">Editar</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_remove', { 'id_empresa': empresa.getId() }) }}">Eliminar</a>
+				        		</div>
+				        </li>
+				        <div style="display:none">
+				        	<div id="emp{{ empresa.getId() }}">
+				        		{{ include(
+				        		    'SalesianosMainBundle:Main:empresa.html.twig',
+				        		    { 'empresa': empresa }
+				        		) }}
+				        	</div>
+				        </div>
+				    {% endif %}
+				{% endfor %}
+			{% endif %}								
+			</ul>
+			<div class="navigation">
+			    {{ knp_pagination_render(pagination) }}
+			</div>	
+		</div>
+		{% endblock contenido %}

@@ -1,0 +1,10 @@
+<a class="fancybox empresa" rel="group" href="{{ path('salesianos_main_empresa', {'id': empresa.getId()}) }}" data-fancybox-type="iframe">
+<li class="oferta_mini">
+	<img src={{asset('bundles/salesianosmain/images/pic5.png')}} alt="" class="left" />
+		<ul class="empresa_detalles">
+			<li><h6>Puesto vacante</h6> {{oferta.getPuesto()}}</li>
+			<li><h6>Sector</h6> {{oferta.getSector().getNombre()}}</li>
+			<li><h6>Empresa</h6> {{oferta.getEmpresa().getNombre()}}</li>
+		</ul>
+</li>
+</a>

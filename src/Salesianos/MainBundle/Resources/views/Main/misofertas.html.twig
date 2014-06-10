@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+		<div class="row main-row">
+
+
+					<div class="3u">						
+						<section>
+							<h2>Ofertas</h2>
+							<p>
+							<a href="{{path('salesianos_main_ofertas')}}">Todas las ofertas</a><br>
+							Mis Ofertas<br>
+							<a href="{{path('salesianos_main_nueva_oferta')}}">Publicar Oferta</a><br>
+							</p>
+							<h3>Filtros de búsqueda</h3>
+							<p>Sector</p>
+							<p>Localidad</p>
+							<p>Mostrar finalizadas</p>
+							
+						</section>					
+					</div>
+
+					<div class="9u">
+						<section>
+							
+							<ul class="big-image-list">
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic5.png')}} alt="" class="left" /></a>
+										<h3>Programador Web</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic4.png')}} alt="" class="left" /></a>
+										<h3>Diseñador gráfico</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic3.png')}} alt="" class="left" /></a>
+										<h3>Encargado de mantenimiento</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic5.png')}} alt="" class="left" /></a>
+										<h3>Programador Web</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic4.png')}} alt="" class="left" /></a>
+										<h3>Diseñador gráfico</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+								<li class="oferta_mini">
+									<a href="#" title="Info Empresa"><img src={{asset('bundles/salesianosmain/images/pic3.png')}} alt="" class="left" /></a>
+										<h3>Encargado de mantenimiento</h3>
+										<p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo 
+										facilisis amet quis consectetur in, sollicitudin vitae justo. Cras 
+										Maecenas eu arcu purus, phasellus fermentum elit.</p>
+								</li>
+							</ul>
+
+						</section>
+					</div>
+
+				</div>
+
+
+		{% endblock %}

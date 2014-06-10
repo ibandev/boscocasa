@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="12u">						
+						<section>
+							<h2>Empresas</h2>
+							{% if empresas is not null %}
+								{% for empresa in empresas %}
+								        {{ include(
+								            'SalesianosMainBundle:Main:empresa_mini.html.twig',
+								            { 'empresa': empresa }
+								        ) }}
+								{% endfor %}
+							{% endif %}	
+						</section>	
+					</div>
+
+				</div>
+
+		{% endblock %}

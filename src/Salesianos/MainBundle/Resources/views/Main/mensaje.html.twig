@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+		
+
+
+				<div class="row main-row">
+					<div class="8u">
+						<section>
+							<div class="mensaje corto">
+								{{ mensaje | raw }}
+								<br><br>
+								<a href="javascript:history.back()">Volver atrás</a> / 
+								<a href="{{path('salesianos_main_homepage')}}">Inicio</a>
+							</div>
+						</section>
+					</div>
+					<div class="4u">						
+						<section>
+							<h2>Te esperamos en...</h2>
+							<p>Colegio Salesianos 'San Ignacio'<br>
+							   Avda. María Auxiliadora, 7<br>
+							   CP 11009, Cádiz</p>
+						</section>
+					</div>
+				</div>
+
+		{% endblock %}

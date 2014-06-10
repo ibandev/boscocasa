@@ -1,0 +1,113 @@
+<html>
+<head>
+</head>
+<body>
+	<div id="candidato">
+		<table class="candidato_fancy personales">
+			<tr>
+				<td class="titulo" colspan="2"><h3>Datos Personales</h3></td>
+			</tr>
+			<tr>
+				<td class="label">Nombre completo: </td><td class="data">{{ candidato.getApellidos() }}, {{ candidato.getNombre() }}</td>
+			</tr>
+			<tr>
+				<td class="label">NIF: </td><td class="data">{{ candidato.getUsuario().getUsername() }}</td>
+			</tr>
+			{% if candidato.getFechaNac() is not null %}
+			<tr>
+				<td class="label">Fecha de nacimiento: </td><td class="data">{{ candidato.getFechaNac().format("d / m / Y") }}</td>
+			</tr>
+			{% endif %}
+			<tr>
+				<td class="label">Edad: </td><td class="data">{{ candidato.getEdad() }}</td>
+			</tr>
+			<tr>
+				<td class="label">Sexo: </td><td class="data">{{ candidato.getSexo() }}</td>
+			</tr>
+			<tr>
+				<td class="label">Ubicación: </td><td class="data">{{ candidato.getPoblacion() }}, {{ candidato.getProvincia().getNombre() }}</td>
+			</tr>		
+			<tr>
+				<td class="label">Teléfono: </td><td class="data">{{ candidato.getTelefono() }}</td>
+			</tr>
+			<tr>
+				<td class="label">Email: </td><td class="data">{{ candidato.getEmail() }}</td>
+			</tr>
+			{% if candidato.getFacebook() is not empty %}
+			<tr>
+				<td class="label">Facebook: </td><td class="data">{{ candidato.getFacebook() }}</td>
+			</tr>
+			{% endif %}
+			{% if candidato.getTwitter() is not empty %}
+			<tr>
+				<td class="label">Twitter: </td><td class="data">{{ candidato.getTwitter() }}</td>
+			</tr>
+			{% endif %}
+			{% if candidato.getBlog() is not empty %}
+			<tr>
+				<td class="label">Blog: </td><td class="data">{{ candidato.getBlog() }}</td>
+			</tr>
+			{% endif %}
+		</table>
+		<div class="candidato_fancy cv">
+			{% if candidato.getCurriculum().getEstudios() is not empty %}
+			<h3>Estudios</h3>
+			<ul class="lista_decorada">
+				{% for estudio in candidato.getCurriculum().getEstudios() %}
+						<li>{{ estudio.getTitulo() }} - {{ estudio.getFechaIni().format("Y") }} / {{ estudio.getFechaFin().format("y") }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+			{% if candidato.getCurriculum().getExperiencias() is not empty %}
+			<h3>Experiencia</h3>
+			<ul class="lista_decorada">
+				{% for experiencia in candidato.getCurriculum().getExperiencias() %}
+						<li>
+							<span class="titulo">Puesto</span> {{ experiencia.getPuesto() }}<br>
+							<span class="left_margin"><span class="titulo">Empresa</span> {{ experiencia.getEmpresa() }}</span><br>
+							<span class="left_margin">del {{ experiencia.getFechaIni().format("m / Y") }} al {{ experiencia.getFechaFin().format("m / Y") }}</span>
+						</li>
+				{% endfor %}
+				<br>
+			</ul>
+			{% endif %}
+
+			{% if candidato.getCurriculum().getConocimientos() is not empty %}
+			<h3>Conocimientos</h3>	
+			<ul class="lista_decorada">
+				{% for conocimiento in candidato.getCurriculum().getConocimientos() %}
+					<li>{{ conocimiento.getConocimiento() }} - Nivel {{ conocimiento.getNivel() }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+			{% if candidato.getCurriculum().getIdiomas() is not empty %}
+			<h3>Idiomas</h3>	
+			<ul class="lista_decorada">
+				{% for idioma in candidato.getCurriculum().getIdiomas() %}
+					<li>{{ idioma.getIdioma() }} - Nivel {{ idioma.getNivel() }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+
+			{% if candidato.getCurriculum().getCarnet() or candidato.getCurriculum().getVehiculo() or candidato.getCurriculum().getMovilidad() %}
+			<h3>Otros datos de interés</h3>	
+			<ul class="lista_decorada">
+				{% if candidato.getCurriculum().getCarnet() %}
+					<li>Carnet de conducir</li>
+				{% endif %}
+				{% if candidato.getCurriculum().getVehiculo() %}
+					<li>Vehículo propio</li>
+				{% endif %}
+				{% if candidato.getCurriculum().getMovilidad() %}
+					<li>Movilidad geográfica</li>
+				{% endif %}
+			</ul>
+			{% endif %}
+		</div>
+
+	</div>
+	
+</body>
+</html>

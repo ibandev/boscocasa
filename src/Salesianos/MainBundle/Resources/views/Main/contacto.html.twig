@@ -1,0 +1,28 @@
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+{% extends '::base.html.twig' %}
+
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="8u">						
+						<section>
+							<h2>Contacta con nosotros</h2>
+							<p>Si tienes cualquier duda o sugerencia, no dudes en escribirnos.</p>
+							{{form(form)}}
+						</section>
+					</div>
+
+					<div class="4u">						
+						<section>
+							<h2>Te esperamos en...</h2>
+							<p>Colegio Salesianos 'San Ignacio'<br>
+							   Avda. María Auxiliadora, 7<br>
+							   CP 11009, Cádiz<br>
+							   Tlf : 956 22 22 22</p>
+						</section>
+					</div>
+
+				</div>
+
+		{% endblock %}

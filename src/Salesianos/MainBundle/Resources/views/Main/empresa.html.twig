@@ -1,0 +1,54 @@
+<html>
+<head>
+</head>
+<body>
+	<div id="oferta">
+
+	<img src={{asset(empresa.getWebPath())}} alt="" class="logo" />
+
+	<table id="oferta_fancy">
+		<tr>
+			<td class="label">Nombre </td><td class="data">{{ empresa.getNombre() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Sector </td><td class="data">{{ empresa.getSector().getNombre() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Email </td><td class="data">{{ empresa.getEmail() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Url </td><td class="data">{{ empresa.getUrl() }}</td>
+		</tr>
+		<tr>
+			<td class="label">Teléfono </td><td class="data">{{ empresa.getTelefono() }}</td>
+		</tr>
+		
+
+
+		<tr>
+			<td class="titulo" colspan="2"><h3>Ubicación</h3></td>
+		</tr>
+		<tr>
+			<td class="label">Población </td><td class="data">{{ empresa.getPoblacion() }}</td>
+		</tr>	
+		<tr>
+			<td class="label">Provincia </td><td class="data">{{ empresa.getProvincia().getNombre() }}</td>
+		</tr>
+
+
+		{% if empresa.getDescripcion() is not empty %}
+		<tr>
+			<td class="titulo" colspan="2"><h3>Descripción</h3></td>
+		</tr>
+		<tr>
+			<td class="data large" colspan="2">{{ empresa.getDescripcion() | raw }}</td>
+		</tr>
+		{% else %}
+			<div class="data large"></div>
+		{% endif %}
+		
+	</table>
+
+	</div>
+</body>
+</html>

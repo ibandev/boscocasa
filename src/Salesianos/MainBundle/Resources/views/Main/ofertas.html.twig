@@ -1,0 +1,78 @@
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+{% extends '::base.html.twig' %}
+	
+	{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	{% endblock stylesheets %}
+	
+	{% block javascripts %}
+	{{ parent() }}
+	<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+	<script type="text/javascript">
+	// Opciones de configuración de fancybox
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+				arrows        : false,
+				scrolling     : 'auto',	
+				type		  : 'inline',
+				wrapCSS		  : 'fancy_custom',
+				// Activa/desactiva el menú superior en dispositivos móviles
+				// para que pueda mostrarse el fancybox completo
+				afterClose : function() {
+						        $('#titleBar').show();
+						        return;
+						    },
+				beforeShow : function() {
+						        $('#titleBar').hide();
+						        return;
+				    		},
+			});
+		});
+	</script>
+	{% endblock javascripts %}
+
+	{% block main %}
+	<div class="row main-row">
+
+				<div class="4u">						
+					<section>
+						{{ include(
+						    'SalesianosMainBundle:Main:menu_ofertas.html.twig',
+						    { 'activo': activo }
+						) }}
+					</section>					
+				</div>
+
+				<div class="8u">
+					<section>
+						<div id="ofertas">
+							<div id="pagination_order">
+								Ordenar por: 
+								{{ knp_pagination_sortable(pagination, 'Puesto', 'o.puesto') }} / 
+								{{ knp_pagination_sortable(pagination, 'Fecha Inicio', 'o.fecha_ini') }} / 
+								{{ knp_pagination_sortable(pagination, 'Fecha Fin', 'o.fecha_fin') }}
+								<div class="count">
+								    {{ pagination.getTotalItemCount }} ofertas encontradas
+								</div>		
+							</div>
+							<ul class="big-image-list">
+							{% if pagination is not null %}
+								{% for oferta in pagination %}
+								        {{ include(
+								            'SalesianosMainBundle:Main:oferta_mini.html.twig',
+								            { 'oferta': oferta }
+								        ) }}
+								{% endfor %}
+							{% endif %}								
+							</ul>
+							<div class="navigation">
+							    {{ knp_pagination_render(pagination) }}
+							</div>	
+						</div>
+					</section>
+				</div>
+
+			</div>
+	{% endblock %}

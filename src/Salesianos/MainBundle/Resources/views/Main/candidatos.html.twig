@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+	
+	{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+	{% endblock stylesheets %}
+	
+	{% block javascripts %}
+	{{ parent() }}
+	<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+	<script type="text/javascript">
+	// Opciones de configuración de fancybox
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+				arrows        : false,
+				scrolling     : 'auto',	
+				type		  : 'inline',
+				wrapCSS		  : 'fancy_custom',
+				// Activa/desactiva el menú superior en dispositivos móviles
+				// para que pueda mostrarse el fancybox completo
+				afterClose : function() {
+						        $('#titleBar').show();
+						        return;
+						    },
+				beforeShow : function() {
+						        $('#titleBar').hide();
+						        return;
+				    		},
+			});
+		});
+	</script>
+	{% endblock javascripts %}
+
+	{% block main %}
+	<div class="row main-row">
+
+				<div class="4u">
+					<section>
+						<ul class="enlaces">							
+							<li><a class="fancybox" href="#oferta">Detalles oferta</a></li>
+							<li><a href="{{path('salesianos_main_descargartodosCV', { 'id_oferta': oferta.getId() }) }}">Descargar todos</a></li>
+							<li><a href="{{ path('salesianos_main_misofertas') }}">Volver a mis ofertas</a></li>
+						</ul>
+						<div style="display:none">
+							<div id="oferta">
+								{{ include(
+								    'SalesianosMainBundle:Main:oferta.html.twig',
+								    { 'oferta': oferta }
+								) }}
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="8u">						
+					<section>
+						{% if oferta.hasFinished() %}
+							<p>La oferta ha finalizado. Puedes descargar los currículums de los candidatos <a href="{{path('salesianos_main_descargartodosCV', { 'id_oferta': oferta.getId() }) }}">aquí</a></p>
+						{% else %}
+							<div id="candidatos">
+								<div class="count">
+								    {{ pagination.getTotalItemCount }} candidatos inscritos
+								</div>
+								<ul class="big-image-list">
+								{% if pagination is not null %}
+									{% for candidato in pagination %}
+									       <li class="candidato_mini ">
+									       		<div class="nombre"><a class="fancybox" href="#cnd{{ candidato.getId() }}">{{ candidato.getApellidos() }}, {{ candidato.getNombre() }}</a></div>
+									       		<div class="descarga"><a href="{{path('salesianos_main_descargarCV', { 'id_oferta': oferta.getId() , 'id_candidato' : candidato.getId()}) }}">Descargar PDF</a></div>
+									       </li>
+									       <div id="cnd{{ candidato.getId() }}" style="display:none;">
+									       		{{ include(
+									       		    'SalesianosMainBundle:Main:candidato.html.twig',
+									       		    { 'candidato': candidato }
+									       		) }}
+									       </div>							       
+									{% endfor %}
+								{% endif %}								
+								</ul>
+								<div class="navigation">
+								    {{ knp_pagination_render(pagination) }}
+								</div>	
+							</div>
+						{% endif %}	
+					</section>					
+				</div>
+
+			</div>
+	{% endblock %}

@@ -1,0 +1,91 @@
+{% extends '::base.html.twig' %}
+
+
+		{% block main %}
+				<div class="row main-row">
+
+
+					<div class="3u">						
+						<section>
+							<p>
+								<a href="{{ path('salesianos_main_miperfil') }}">Configuración de la cuenta</a><br>
+								<a href="{{ path('salesianos_main_datos_alumno') }}">Datos personales</a><br>
+								Curriculum Vitae<br>
+							</p>
+						</section>
+					</div>
+
+					<div class="9u">					
+						<section>
+							<div id="cv">
+								<h2>Curriculum Vitae</h2>
+
+								<h3>Estudios</h3>
+								<ul class="lista_decorada">
+								{% if cv.getEstudios() is empty %}
+									<p class="orange">No has añadido ningún estudio todavía.</p>
+								{% endif %}
+								{% for estudio in cv.getEstudios()%}
+									<li>{{ estudio.getTitulo() }} - {{ estudio.getFechaIni().format("Y") }} / {{ estudio.getFechaFin().format("y") }} 
+										<a class="eliminar" title="Eliminar" href="{{path('salesianos_main_eliminarcv', { 'tipo': 'estudio' , 'id' : estudio.getId()}) }}">x</a>
+									</li>
+								{% endfor %}
+								</ul>
+								<a class="button" href="{{path('salesianos_main_addcv', { 'tipo': 'estudio'}) }}">Añadir Estudio</a>
+								<br>
+
+								<h3>Experiencia</h3>
+								<ul class="lista_decorada">
+								{% if cv.getExperiencias() is empty %}
+									<p class="orange">No has añadido ninguna experiencia todavía.</p>
+								{% endif %}
+								{% for exp in cv.getExperiencias() %}
+									<li><h6>Puesto</h6> {{ exp.getPuesto() }} <a class="eliminar" title="Eliminar" href="{{path('salesianos_main_eliminarcv', { 'tipo': 'experiencia' , 'id' : exp.getId()}) }}">x</a><br>
+									<span class="left_margin"><h6>Empresa</h6> {{ exp.getEmpresa() }}</span><br>
+									<span class="left_margin">del {{ exp.getFechaIni().format("m / Y") }} al {{ exp.getFechaFin().format("m / Y") }}</span>
+									</li>
+									<br>
+								{% endfor %}
+								</ul>
+								<a class="button" href="{{path('salesianos_main_addcv', { 'tipo': 'experiencia'}) }}">Añadir Experiencia</a>
+								<br>
+								<h3>Conocimientos</h3>
+								<ul class="lista_decorada">
+								{% if cv.getConocimientos() is empty %}
+									<p class="orange">No has añadido ningún conocimiento todavía.</p>
+								{% endif %}
+								{% for con in cv.getConocimientos() %}
+									<li>{{ con.getConocimiento() }} - Nivel {{ con.getNivel() }} <a class="eliminar" title="Eliminar" href="{{path('salesianos_main_eliminarcv', { 'tipo': 'conocimiento' , 'id' : con.getId()}) }}">x</a></li>							
+								{% endfor %}
+								</ul>
+								<a class="button" href="{{path('salesianos_main_addcv', { 'tipo': 'conocimiento'}) }}">Añadir Conocimiento</a>
+								<br>
+
+								<h3>Idiomas</h3>
+								<ul class="lista_decorada">
+								{% if cv.getIdiomas() is empty %}
+									<p class="orange">No has añadido ningún idioma todavía.</p>
+								{% endif %}
+								{% for idioma in cv.getIdiomas()%}
+									<li>{{ idioma.getIdioma() }} - Nivel {{ idioma.getNivel() }} <a class="eliminar" title="Eliminar" href="{{path('salesianos_main_eliminarcv', { 'tipo': 'idioma' , 'id' : idioma.getId()}) }}">x</a></li>
+								{% endfor %}
+								</ul>
+								<a class="button" href="{{path('salesianos_main_addcv', { 'tipo': 'idioma'}) }}">Añadir Idioma</a>
+								<br>
+								<h3>Otros datos</h3>
+								<table id="otros_datos">
+									<tr><td class="label">Permiso de conducir </td><td>{{ cv.getCarnet() | sino }}</td></tr>
+									<tr><td class="label">Vehículo propio </td><td>{{ cv.getVehiculo() | sino }}</td></tr>
+									<tr><td class="label">Movilidad geográfica </td><td>{{ cv.getMovilidad() | sino }}</td></tr>
+								</table>
+								<a class="button" href="{{path('salesianos_main_addcv', { 'tipo': 'otros'}) }}">Modificar</a>
+								<p>Actualizado el {{ cv.getUltimaActualizacion().format('d / m / Y') }}</p>
+							</div>
+						</section>	
+					</div>
+
+				</div>
+
+				
+
+		{% endblock %}

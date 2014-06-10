@@ -1,0 +1,22 @@
+
+
+
+
+
+
+	
+
+	<li id="{{ oferta.getId() }}" class="oferta_mini">
+		<a class="fancybox oferta" rel="group" href="{{ path('salesianos_main_oferta', {'id': oferta.getId()}) }}" data-fancybox-type="iframe">
+		<img src={{asset('uploads/empresas/logos/'~oferta.getEmpresa.getPath())}} alt="" class="logo left" />
+		<img src={{asset('bundles/salesianosmain/images/info.png')}} alt="" class="boton_info oculto" id="btn{{ oferta.getId() }}" />		
+			<div class="oferta_detalles">	
+				<ul>					
+					<li><h6>Puesto vacante</h6> {{oferta.getPuesto()}}</li>
+					<li><h6>Sector</h6> {{oferta.getSector().getNombre()}}</li>
+					<li><h6>Empresa</h6> {{oferta.getEmpresa().getNombre()}}</li>
+					<li><h6>Provincia</h6> {{oferta.getProvincia().getNombre()}}</li>
+				</ul>
+			</div>
+		</a>
+	</li>

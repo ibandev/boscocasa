@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+		
+		{% block javascripts %}
+		    {{ parent() }}
+
+		    {# Script para la carga correcta de los párrafos justificados #}
+		    <script type="text/javascript">                    
+		        $(document).ready(function() {                        
+		            $('.articulo').attr("style","text-align:justify;");
+		        });
+		    </script>
+
+		{% endblock %}
+		{% block main %}
+
+				<div class="row main-row">
+
+					<div class="7u">						
+						<section>
+							<div class="articulo">
+							{{ include(
+							    'SalesianosMainBundle:Main:articulo.html.twig',
+							    { 'articulo': articulo }
+							) }}
+							</div>
+						</section>
+					</div>
+
+					<div class="1u no-mobile">						
+						<section>
+							&nbsp;
+						</section>
+					</div>
+
+					<div class="4u">
+						<section>						
+							<ul class="link-list blog">
+								<h3>Artículos</h3>						
+								{% for art in articulos %}
+									{% if art.getId() == articulo.getId() %}
+										<li><span class="nobreak">{{ art.getFechaPubli().format('d / m / Y') }}</span> &middot; {{ art.getTitulo() }}</li>
+									{% else %}
+										<li><a href="{{path('salesianos_main_showArticle', { 'id_articulo': art.getId() }) }}" title="{{ articulo.getPrevia(250) }}"><span class="nobreak">{{ art.getFechaPubli().format('d / m / Y') }}</span> &middot; {{ art.getTitulo() }}</a></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</section>
+					</div>
+
+				</div>
+
+		{% endblock %}

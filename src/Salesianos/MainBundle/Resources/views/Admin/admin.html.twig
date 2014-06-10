@@ -1,0 +1,117 @@
+{% extends '::adminBase.html.twig' %}
+        
+        {% block javascripts %}
+        	{{ parent() }}
+        	<script src={{asset('bundles/salesianosmain/js/fancybox/jquery.fancybox.pack.js')}}></script>
+        	<script type="text/javascript">
+        		$(document).ready(function() {
+        			$(".fancybox").fancybox({
+        				arrows        : false,
+        				scrolling     : 'auto',	
+        				type		  : 'inline',
+        				wrapCSS		  : 'fancy_custom',
+        				// Activa/desactiva el menú superior en dispositivos móviles
+        				// para que pueda mostrarse el fancybox completo
+        				afterClose : function() {
+        						        $('#titleBar').show();
+        						        return;
+        						    },
+        				beforeShow : function() {
+        						        $('#titleBar').hide();
+        						        return;
+        				    		},
+        			});
+        		});
+        	</script>
+        {% endblock javascripts %}
+        {% block stylesheets %}
+			{{ parent() }}
+			<link rel="stylesheet" href={{asset('bundles/salesianosmain/css/jquery.fancybox.css')}} />
+			<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		{% endblock stylesheets %}
+		{% block menu_lateral %}
+		<p>		
+			Inicio<br>
+			<a href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a><br>                 
+			<a href="{{ path('salesianos_admin_empresas') }}">Empresas</a><br>
+			<a href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a><br>
+			<a href="{{ path('salesianos_admin_blog') }}">Blog</a><br>
+		</p>
+		{% endblock menu_lateral %}
+
+		{% block contenido %}
+			<div class="admin widget half">
+				<a href="#">Cambiar datos de acceso del Administrador</a>
+			</div>
+			
+			<h3>Empresas pendientes de validación</h3>
+			<ul class="big-image-list">
+				{% for empresa in empresas %}
+				        <li class="candidato_mini">
+				        		<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">{{ empresa.getNombre() }}</a></div>
+				        		<div class="opciones">
+				        			<a href="{{path('salesianos_admin_empresa_validate', { 'id_empresa': empresa.getId() }) }}">
+				        				{% if empresa.getValida() %}Suspender{% else %}<span class="orange">Activar</span>{% endif %}
+				        			</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_edit', { 'id_empresa': empresa.getId() }) }}">Editar</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_remove', { 'id_empresa': empresa.getId() }) }}">Eliminar</a>
+				        		</div>
+				        </li>
+				        <div style="display:none">
+				        	<div id="emp{{ empresa.getId() }}">
+				        		{{ include(
+				        		    'SalesianosMainBundle:Main:empresa.html.twig',
+				        		    { 'empresa': empresa }
+				        		) }}
+				        	</div>
+				        </div>
+				{% endfor %}
+			</ul>
+
+			<h3>Ofertas finalizadas publicadas</h3>
+			<ul class="big-image-list">
+				{% for oferta in ofertas %}
+					{% if oferta.hasFinished() %}
+				        <li class="candidato_mini">
+				        		<div class="nombre"><a class="fancybox" href="#of{{ oferta.getId() }}">
+				        		
+				        		{{ oferta.getFechaIni().format('d/m/Y') }} - 
+				        		<span {% if oferta.hasFinished() %}class="orange"{% endif %}>{{ oferta.getFechaFin().format('d/m/Y') }}</span> &middot; 
+				        		{{ oferta.getEmpresa().getNombre() }} &middot; 
+				        		{{ oferta.getPuesto() }}
+				        		</a></div>
+				        		<div class="opciones">
+				        			<a href="{{path('salesianos_admin_oferta_estado', { 'id_oferta': oferta.getId() }) }}">
+				        				{% if oferta.getVisible() %}Ocultar{% else %}Publicar{% endif %}
+				        			</a> / 
+				        			<a href="{{path('salesianos_admin_oferta_edit', { 'id_oferta': oferta.getId() }) }}">Editar</a> / 
+				        			<a href="{{path('salesianos_admin_oferta_remove', { 'id_oferta': oferta.getId() }) }}">Eliminar</a>
+				        		</div>
+				        </li>
+				        <div style="display:none">
+				        	<div id="of{{ oferta.getId() }}">
+				        		{{ include(
+				        		    'SalesianosMainBundle:Main:oferta.html.twig',
+				        		    { 'oferta': oferta }
+				        		) }}
+				        	</div>
+				        </div>
+				    {% endif %}
+				{% endfor %}
+			</ul>
+			<h3>Estadísticas</h3>
+			<div class="admin widget half">
+				
+				<table id="estadisticas">
+					<tr>
+					<td class="label">Candidatos registrados </td><td>asd</td>
+					</tr>
+					<tr>
+					<td class="label">Empresas registradas </td><td>asd</td>
+					</tr>
+					<tr>
+					<td class="label">Ofertas activas </td><td>asd</td>
+					</tr>
+				</table>
+			</div>
+		{% endblock contenido %}

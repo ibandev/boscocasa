@@ -1,0 +1,16 @@
+
+{% if is_granted("ROLE_ALUMNO") %}
+	{% for candidato in oferta.getCandidatos() %}
+		{% if candidato.getUsuario().getId() == app.user.getId() %}			
+			{% if candidato.hasOferta(oferta) %}
+				<span class="right" style="color:#FFA500; font-weight:bold;">Ya estás inscrito</span>
+			{% else %}
+				<a href="{{ path('salesianos_main_inscripcion',{ 'id_oferta': oferta.getId()}) }}" class="button right">Inscribirme</a>
+			{% endif %}
+		{% endif %}
+
+	{% endfor %}
+	
+{% elseif is_granted("ROLE_EMPRESA") and (app.user.getId() == oferta.getEmpresa().getUsuario().getId()) %}
+	<a href="{{ path('salesianos_main_verinscritos',{ 'id_oferta': oferta.getId()}) }}" class="button right">Ver inscritos</a>
+{% endif %}
