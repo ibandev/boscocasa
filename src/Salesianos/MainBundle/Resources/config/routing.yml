@@ -122,7 +122,7 @@ salesianos_admin_candidato_edit:
     pattern:  /admin/candidatos/editar/{id_candidato}
     defaults: { _controller: SalesianosMainBundle:Admin:candidatoEdit }
 
-salesianos_admin_candidato_remove:
+salesianos_admin_candidato_add:
     pattern:  /admin/candidatos/nuevo
     defaults: { _controller: SalesianosMainBundle:Admin:candidatoAdd }
 
@@ -177,4 +177,8 @@ salesianos_admin_articulo_edit:
 salesianos_admin_articulo_add:
     pattern:  /admin/blog/nuevo
     defaults: { _controller: SalesianosMainBundle:Admin:articuloAdd }
+
+salesianos_admin_sector_add:
+    pattern:  /admin/sector/nuevo
+    defaults: { _controller: SalesianosMainBundle:Admin:sectorAdd }
 

@@ -478,18 +478,19 @@ class MainController extends Controller
         $fs = new Filesystem();
         $candidato = $this->getDoctrine()->getRepository('SalesianosMainBundle:Candidato')->find($id_candidato);
         $path = __DIR__.'/../../../../web/temp/cv_'.$this->quitar_tildes($candidato->getApellidos()).', '.$this->quitar_tildes($candidato->getNombre()).'.pdf';
-        if(!$fs->exists($path)){
-            $this->get('knp_snappy.pdf')->generateFromHtml(
-                $this->renderView(
-                    'SalesianosMainBundle:Main:candidato.html.twig',
-                    array(
-                        'candidato'  => $candidato
-                    )
-                ), $path,
-                    array('encoding' => 'UTF-8', 
-                          'minimum-font-size' => '20')
-                );
-        }      
+        if($fs->exists($path)){
+           $fs->remove($path);
+        }
+        $this->get('knp_snappy.pdf')->generateFromHtml(
+            $this->renderView(
+                'SalesianosMainBundle:Main:candidato.html.twig',
+                array(
+                    'candidato'  => $candidato
+                )
+            ), $path,
+                array('encoding' => 'UTF-8', 
+                      'minimum-font-size' => '20')
+            );     
         $content = file_get_contents($path);
 
         $response = new Response();
@@ -504,26 +505,33 @@ class MainController extends Controller
         $fs = new Filesystem();
         $oferta = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta')->find($id_oferta);
         $candidatos = $oferta->getCandidatos();
-
+        if($candidatos == null){
+            return $this->redirect($this->generateUrl('salesianos_main_verinscritos',array('oferta' => $oferta)));
+        }
         $zip = new \ZipArchive();
         $zipPath =  __DIR__.'/../../../../web/temp/';
         $zipName =  date('dmY').'cvs-'.substr($oferta->getPuesto(), 0, 30).".zip";
+        if($fs->exists($zipPath.$zipName)){
+            $fs->remove($zipPath.$zipName); 
+        }
         $zip->open($zipPath.$zipName,  \ZipArchive::CREATE);
 
         foreach ($candidatos as $candidato) {
-            $path = 'cv_'.$this->quitar_tildes($candidato->getApellidos()).', '.$this->quitar_tildes($candidato->getNombre()).'.pdf';
-            if(!$fs->exists($path)){
-                $this->get('knp_snappy.pdf')->generateFromHtml(
-                    $this->renderView(
-                        'SalesianosMainBundle:Main:candidato.html.twig',
-                        array(
-                            'candidato'  => $candidato
-                        )
-                    ), $path,
-                        array('encoding' => 'UTF-8', 
-                              'minimum-font-size' => '20')
-                    );
+            $path = 'cvs_'.$id_oferta.'/cv_'.$this->quitar_tildes($candidato->getApellidos()).', '.$this->quitar_tildes($candidato->getNombre()).'.pdf';
+            if($fs->exists($path)){
+               $fs->remove($path); 
             }
+            $this->get('knp_snappy.pdf')->generateFromHtml(
+                $this->renderView(
+                    'SalesianosMainBundle:Main:candidato.html.twig',
+                    array(
+                        'candidato'  => $candidato
+                    )
+                ), $path,
+                    array('encoding' => 'UTF-8', 
+                          'minimum-font-size' => '20')
+                );
+            $i=0;
             $zip->addFile($path);
         }
         $zip->close();

@@ -46,6 +46,8 @@ class OfertasController extends Controller
             $datos = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $queryBuilder = $repository->createQueryBuilder('o');
+            $queryBuilder->where('o.visible = 1');
+            $where = true;
             if($datos['sector']!=null){
                 $queryBuilder->where('o.sector = :sector')->setParameter('sector', $datos['sector']);
                 $where = true;
@@ -60,7 +62,7 @@ class OfertasController extends Controller
             }
             $query = $queryBuilder->getQuery();
         }else{
-            $queryBuilder = $repository->createQueryBuilder('o')->orderBy('o.fecha_ini', 'DESC');
+            $queryBuilder = $repository->createQueryBuilder('o')->where('o.visible = 1')->orderBy('o.fecha_ini', 'DESC');
             $query = $queryBuilder->getQuery();
         }
         $pagination = $paginator->paginate(
@@ -229,11 +231,8 @@ class OfertasController extends Controller
 
     public function verinscritosAction($id_oferta)
     {
-        $paginator  = $this->get('knp_paginator');
         $user = $this->container->get('security.context')->getToken()->getUser();
-
         if($user->hasRole("ROLE_EMPRESA")){
-
             $oferta = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta')->find($id_oferta);
             if($oferta->getEmpresa()->getUsuario()->getId() == $user->getId()){
                 $candidatos = $oferta->getCandidatos();            
@@ -243,15 +242,7 @@ class OfertasController extends Controller
         }else{
              return $this->redirect($this->generateUrl('salesianos_main_homepage'));
         }
-
-        $pagination = $paginator->paginate(
-                    $candidatos,
-                    $this->get('request')->query->get('page', 1)/*page number*/,
-                    10/*limit per page*/
-                );
-
         return $this->render('SalesianosMainBundle:Main:candidatos.html.twig', array(
-                    'pagination' => $pagination,
                     'candidatos' => $candidatos,
                     'oferta' => $oferta,
         ));

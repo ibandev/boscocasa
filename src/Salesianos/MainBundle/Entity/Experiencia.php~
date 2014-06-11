@@ -18,7 +18,7 @@ class Experiencia
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="experiencias", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="experiencias")
      * 
      **/
     protected $curriculum;

@@ -69,7 +69,7 @@ class Empresa
     protected $descripcion;
 
     /**
-     *  @ORM\OneToMany(targetEntity="Oferta", mappedBy="empresa")
+     *  @ORM\OneToMany(targetEntity="Oferta", mappedBy="empresa", cascade={"remove"})
      */
     protected $ofertas;
 

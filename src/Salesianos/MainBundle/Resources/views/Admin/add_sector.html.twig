@@ -1,0 +1,17 @@
+{% extends '::adminBase.html.twig' %}
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
+		{% block menu_lateral %}	
+		<p>	
+			<a href="{{ path('salesianos_admin_homepage') }}">Inicio</a><br>
+			<a href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a><br>                 
+			<a href="{{ path('salesianos_admin_empresas') }}">Empresas</a><br>
+			<a href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a><br>
+			Blog<br>	
+		</p>
+		{% endblock menu_lateral %}
+
+		{% block contenido %}
+		<div id="form_sector">
+			{{ form(form) }}
+		</div>
+		{% endblock contenido %}

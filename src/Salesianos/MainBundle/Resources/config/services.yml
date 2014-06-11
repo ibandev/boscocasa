@@ -16,6 +16,13 @@ services:
             - { name: kernel.event_subscriber }
             - { name: 'kernel.event_listener', event: 'registration.completed', method:"onRegistrationCompleted"}
 
+    salesianos_main.changePassword:
+        class: Salesianos\MainBundle\EventListener\ChangePasswordListener
+        arguments: [@service_container, @router, @security.context, @event_dispatcher]
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: 'kernel.event_listener', event: 'fos_user.change_password.edit.completed', method:"onChangePasswordCompleted"}
+
     salesianos.twig.acme_extension:
         class: Salesianos\MainBundle\Twig\SiNoExtension
         tags:

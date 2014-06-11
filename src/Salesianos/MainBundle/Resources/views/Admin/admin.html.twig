@@ -41,12 +41,28 @@
 
 		{% block contenido %}
 			<div class="admin widget half">
-				<a href="#">Cambiar datos de acceso del Administrador</a>
+				<p>
+				<a href="{{ path('salesianos_main_miperfil') }}">Cambiar datos de acceso del Administrador</a><br>
+				<a href="{{ path('salesianos_admin_sector_add') }}">Nuevo sector</a>
+				</p>
 			</div>
-			
 			<h3>Empresas pendientes de validación</h3>
 			<ul class="big-image-list">
 				{% for empresa in empresas %}
+					{% if empresa.getNombre() is null %}
+						<li class="candidato_mini">
+								<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">Perfil vacío</a></div>
+								<div class="opciones">
+									<a href="{{path('salesianos_admin_empresa_edit', { 'id_empresa': empresa.getId() }) }}">Editar</a> / 
+									<a href="{{path('salesianos_admin_empresa_remove', { 'id_empresa': empresa.getId() }) }}">Eliminar</a>
+								</div>
+						</li>
+						<div style="display:none">
+				        	<div id="emp{{ empresa.getId() }}">
+				        		No hay información disponible.
+				        	</div>
+				        </div>
+					{% else %}
 				        <li class="candidato_mini">
 				        		<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">{{ empresa.getNombre() }}</a></div>
 				        		<div class="opciones">
@@ -65,6 +81,7 @@
 				        		) }}
 				        	</div>
 				        </div>
+				    {% endif %}
 				{% endfor %}
 			</ul>
 

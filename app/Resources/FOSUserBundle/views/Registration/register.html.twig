@@ -1,5 +1,27 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
+{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block main %}
+<div class="row main-row">
+
+	<div class="8u">					
+		<section>
+			<h2>Nueva empresa</h2>
+			{% block fos_user_content %}
+				{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+			{% endblock fos_user_content %}
+		</section>	
+	</div>
+	<div class="4u">					
+		<section>
+			<h3>Pasos a seguir</h3>
+			<p>Crea tu usuario<br>
+				Rellena el perfil de tu empresa<br>
+				Espera que el administrador valide tu empresa<br>
+				¡Empieza a publicar ofertas!
+			</p>
+		</section>	
+	</div>
+
+</div>
+{% endblock main %}

@@ -20,8 +20,8 @@ class Empresa
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Usuario")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Usuario", cascade={"remove"})
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     protected $usuario;
 
@@ -33,7 +33,6 @@ class Empresa
  
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * 
      */
     protected $nombre;
 
@@ -69,7 +68,7 @@ class Empresa
     protected $descripcion;
 
     /**
-     *  @ORM\OneToMany(targetEntity="Oferta", mappedBy="empresa")
+     *  @ORM\OneToMany(targetEntity="Oferta", mappedBy="empresa", cascade={"remove"})
      */
     protected $ofertas;
 

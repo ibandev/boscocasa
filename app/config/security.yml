@@ -19,7 +19,7 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /datospersonales, roles: ROLE_ALUMNO }
         - { path: /datosempresa, roles: ROLE_EMPRESA }
-        - { path: ^/miperfil, roles: [ROLE_ALUMNO, ROLE_EMPRESA] }
+        - { path: ^/miperfil, roles: [ROLE_ALUMNO, ROLE_EMPRESA, ROLE_ADMIN] }
         - { path: ^/misofertas, roles: [ROLE_ALUMNO, ROLE_EMPRESA] }
         - { path: ^/nuevaoferta, roles: ROLE_EMPRESA }
         # Include the following line to also secure the /admin path itself

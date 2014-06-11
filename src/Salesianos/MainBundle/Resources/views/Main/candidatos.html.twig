@@ -57,12 +57,9 @@
 							<p>La oferta ha finalizado. Puedes descargar los currículums de los candidatos <a href="{{path('salesianos_main_descargartodosCV', { 'id_oferta': oferta.getId() }) }}">aquí</a></p>
 						{% else %}
 							<div id="candidatos">
-								<div class="count">
-								    {{ pagination.getTotalItemCount }} candidatos inscritos
-								</div>
 								<ul class="big-image-list">
-								{% if pagination is not null %}
-									{% for candidato in pagination %}
+								{% if candidatos %}
+									{% for candidato in candidatos %}
 									       <li class="candidato_mini ">
 									       		<div class="nombre"><a class="fancybox" href="#cnd{{ candidato.getId() }}">{{ candidato.getApellidos() }}, {{ candidato.getNombre() }}</a></div>
 									       		<div class="descarga"><a href="{{path('salesianos_main_descargarCV', { 'id_oferta': oferta.getId() , 'id_candidato' : candidato.getId()}) }}">Descargar PDF</a></div>
@@ -75,10 +72,7 @@
 									       </div>							       
 									{% endfor %}
 								{% endif %}								
-								</ul>
-								<div class="navigation">
-								    {{ knp_pagination_render(pagination) }}
-								</div>	
+								</ul>	
 							</div>
 						{% endif %}	
 					</section>					

@@ -542,3 +542,6 @@ td.label{
 #otros_datos{
 	margin-bottom: 20px;
 }
+.fos_user_registration_register .form_label{
+	width: 150px;
+}

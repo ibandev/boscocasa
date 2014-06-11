@@ -9,9 +9,9 @@ use Salesianos\MainBundle\Entity\Oferta;
 use Salesianos\MainBundle\Entity\Articulo;
 use Salesianos\MainBundle\Entity\Estudio;
 use Salesianos\MainBundle\Entity\Curriculum;
-use Salesianos\MainBundle\Entity\Logo;
 use Salesianos\MainBundle\Entity\Experiencia;
 use Salesianos\MainBundle\Entity\Idioma;
+use Salesianos\MainBundle\Entity\Sector;
 use Salesianos\MainBundle\Entity\Conocimiento;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
@@ -26,8 +26,8 @@ use Salesianos\MainBundle\Form\Type\OfertaAdminFormType;
 use Salesianos\MainBundle\Form\Type\EmpresaFormType;
 use Salesianos\MainBundle\Form\Type\BuscaOfertasFormType;
 use Salesianos\MainBundle\Form\Type\CandidatoFormType;
+use Salesianos\MainBundle\Form\Type\SectorFormType;
 use Salesianos\MainBundle\Form\Type\CurriculumFormType;
-use Salesianos\MainBundle\Form\Type\LogoFormType;
 use Salesianos\MainBundle\Form\Type\EstudioFormType;
 use Salesianos\MainBundle\Form\Type\ConocimientoFormType;
 use Salesianos\MainBundle\Form\Type\ExperienciaFormType;
@@ -43,7 +43,7 @@ class AdminController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Empresa');
         $query = $repository->createQueryBuilder('e')
-                ->where('e.valida = 0')          
+                ->where('e.valida = 0 or e.valida is null')          
                 ->getQuery();
         $empresas = $query->getResult();
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta');
@@ -112,12 +112,44 @@ class AdminController extends Controller
             ));        
     }
 
+    public function candidatoAddAction()
+    {
+        $request = $this->getRequest();
+        $form = $this->createFormBuilder()
+            ->add('nombre', 'text')
+            ->add('email', 'email')
+            ->add('password', 'textarea')
+            ->getForm();         
+        $form->handleRequest($request);
+
+        if($request->getMethod() == 'POST'){ 
+            if($form->isValid()){
+                $data = $form->getData();
+                $userManager = $this->get('fos_user.user_manager');
+                $user = $userManager->createUser();
+                $user->setUsername($data['nombre']);
+                $user->setEmail($data['email']);
+                $user->setPlainPassword($data['password']);
+                $user->addRole("ROLE_ALUMNO");
+                $form->handleRequest($request);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+                return $this->redirect($this->generateUrl('salesianos_admin_candidatos'));
+            }
+            
+        }
+        return $this->render('SalesianosMainBundle:Admin:add_candidato.html.twig',array(
+                'form' => $form->createView(),
+            ));        
+    }
+
     public function empresasShowAction()
     {
         $paginator  = $this->get('knp_paginator');
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Empresa');
-        $queryBuilder = $repository->createQueryBuilder('e')->orderBy('e.nombre', 'ASC');
-        $empresas = $queryBuilder->getQuery(); 
+        $request = $this->getRequest();
+        $empresas = $repository->createQueryBuilder('e')->getQuery(); 
         $pagination = $paginator->paginate(
                         $empresas,
                         $this->get('request')->query->get('page', 1)/*page number*/,
@@ -167,6 +199,38 @@ class AdminController extends Controller
             }
         }
         return $this->render('SalesianosMainBundle:Admin:editar_empresa.html.twig',array(
+                'form' => $form->createView(),
+            ));        
+    }
+
+    public function empresaAddAction()
+    {
+        $request = $this->getRequest();
+        $form = $this->createFormBuilder()
+            ->add('nombre', 'text')
+            ->add('email', 'email')
+            ->add('password', 'textarea')
+            ->getForm();         
+        $form->handleRequest($request);
+
+        if($request->getMethod() == 'POST'){ 
+            if($form->isValid()){
+                $data = $form->getData();
+                $userManager = $this->get('fos_user.user_manager');
+                $user = $userManager->createUser();
+                $user->setUsername($data['nombre']);
+                $user->setEmail($data['email']);
+                $user->setPlainPassword($data['password']);
+                $user->addRole("ROLE_EMPRESA");
+                $form->handleRequest($request);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+                return $this->redirect($this->generateUrl('salesianos_admin_empresas'));
+            }
+            
+        }
+        return $this->render('SalesianosMainBundle:Admin:add_empresa.html.twig',array(
                 'form' => $form->createView(),
             ));        
     }
@@ -338,6 +402,26 @@ class AdminController extends Controller
         
     }
 
+    public function sectorAddAction()
+    {
+        $request = $this->getRequest();
+        $sector = new Sector();
+        $form = $this->createForm(new SectorFormType(), $sector);
+        if($request->getMethod() == 'POST'){
+
+            $form->handleRequest($request);
+
+            if($form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($sector);
+                $em->flush();
+                return $this->redirect($this->generateUrl('salesianos_admin_homepage'));
+            }
+        }
+        return $this->render('SalesianosMainBundle:Admin:add_sector.html.twig',array(
+                'form' => $form->createView(),
+            ));        
+    }
     
 
     

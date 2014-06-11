@@ -58,13 +58,17 @@
                     <div class="12u">
                         
                         <header id="header">
-                            <h1><a href="{{ path('salesianos_admin_homepage') }}" id="logo">boscoempleo.com &middot; Administración</a></h1>
+                            <h1><a href="{{ path('salesianos_admin_homepage') }}" id="logo">boscoempleo.com &middot; Admin</a></h1>
                             <nav id="nav">
                                 <a id="inicio" href="{{ path('salesianos_admin_homepage') }}">Inicio</a>
                                 <a id="candidatos" href="{{ path('salesianos_admin_candidatos') }}">Candidatos</a>               
                                 <a id="empresas" href="{{ path('salesianos_admin_empresas') }}">Empresas</a>
                                 <a id="ofertas" href="{{ path('salesianos_admin_ofertas') }}">Ofertas</a>
-                                <a id="blog" href="{{ path('salesianos_admin_blog') }}">Blog</a>                            
+                                <a id="blog" href="{{ path('salesianos_admin_blog') }}">Blog</a>     
+                                    <a id="login" href="{{ path('fos_user_security_logout') }}" >                                   
+                                    <span class="iec_power no-mobile conectado" title="Cerrar Sesión">&#x23FB;</span>
+                                    <span class="mobile-only">Iniciar / Cerrar sesión</span>
+                                    </a>                         
                             </nav>
                         </header>
 

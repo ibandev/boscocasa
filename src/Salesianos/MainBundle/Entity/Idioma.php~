@@ -18,7 +18,7 @@ class Idioma
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="idiomas", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Curriculum", inversedBy="idiomas")
      * 
      **/
     protected $curriculum;
