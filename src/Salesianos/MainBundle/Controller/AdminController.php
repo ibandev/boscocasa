@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Salesianos\MainBundle\Entity\Oferta;
 use Salesianos\MainBundle\Entity\Articulo;
 use Salesianos\MainBundle\Entity\Estudio;
+use Salesianos\MainBundle\Entity\Candidato;
 use Salesianos\MainBundle\Entity\Curriculum;
 use Salesianos\MainBundle\Entity\Experiencia;
 use Salesianos\MainBundle\Entity\Idioma;
@@ -116,13 +117,14 @@ class AdminController extends Controller
     {
         $request = $this->getRequest();
         $form = $this->createFormBuilder()
-            ->add('nombre', 'text')
+            ->add('nif', 'text')
             ->add('email', 'email')
-            ->add('password', 'textarea')
+            ->add('password', 'password')
+            ->add('Crear', 'submit')
             ->getForm();         
-        $form->handleRequest($request);
-
+        
         if($request->getMethod() == 'POST'){ 
+            $form->handleRequest($request);
             if($form->isValid()){
                 $data = $form->getData();
                 $userManager = $this->get('fos_user.user_manager');
@@ -131,9 +133,12 @@ class AdminController extends Controller
                 $user->setEmail($data['email']);
                 $user->setPlainPassword($data['password']);
                 $user->addRole("ROLE_ALUMNO");
-                $form->handleRequest($request);
+                $candidato = new Candidato();
+                $candidato->setNombre('Nuevo Candidato');
+                $candidato->setUsuario($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
+                $em->persist($candidato);
                 $em->flush();
                 return $this->redirect($this->generateUrl('salesianos_admin_candidatos'));
             }

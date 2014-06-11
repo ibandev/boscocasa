@@ -42,6 +42,9 @@
 		{% endblock menu_lateral %}
 
 		{% block contenido %}
+		<div id="nuevo_articulo">
+			<a href="{{path('salesianos_admin_candidato_add')}}">Crear candidato</a>
+		</div>
 		<div id="candidatos">
 			<div id="pagination_order">
 				Ordenar por: 
@@ -54,6 +57,20 @@
 			<ul class="big-image-list">
 			{% if pagination is not null %}
 				{% for candidato in pagination %}
+						{% if candidato.getApellidos() is null %}
+							<li class="candidato_mini">
+									<div class="nombre"><a class="fancybox" href="#emp{{ candidato.getId() }}">{{ candidato.getUsuario().getUsername() }}</a></div>
+									<div class="opciones">
+										<a href="{{path('salesianos_admin_candidato_edit', { 'id_candidato': candidato.getId() }) }}">Editar</a> / 
+										<a href="{{path('salesianos_admin_candidato_remove', { 'id_candidato': candidato.getId() }) }}">Eliminar</a>
+									</div>
+							</li>
+							<div style="display:none">
+					        	<div id="emp{{ candidato.getId() }}">
+					        		No hay información disponible.
+					        	</div>
+					        </div>
+						{% else %}
 				        <li class="candidato_mini">
 				        		<div class="nombre"><a class="fancybox" href="#cnd{{ candidato.getId() }}">{{ candidato.getUsuario().getUsername() }} &middot; {{ candidato.getApellidos() }}, {{ candidato.getNombre() }}</a></div>
 				        		<div class="opciones">
@@ -69,6 +86,7 @@
 				        		) }}
 				        	</div>
 				        </div>
+				        {% endif %}
 				{% endfor %}
 			{% endif %}								
 			</ul>
