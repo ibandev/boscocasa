@@ -507,20 +507,21 @@ span.titulo{
 }
 
 .contenido{
-	padding: 5px;
+	padding: 5px !important;
 }
 .contenido p{
-	line-height: 1.2em;
-	margin-bottom: 10px;
+	line-height: 1.2em !important;
+	margin-bottom: 10px !important;
+	font-family: 'Ubuntu Condensed', sans-serif !important;
 }
 .contenido ul{
-	list-style: circle inside;
+	list-style: circle inside !important;
 }
 .contenido ol{
-	list-style: decimal inside;
+	list-style: decimal inside !important;
 }
 .contenido.previa{
-	margin-bottom: 30px;
+	margin-bottom: 30px !important;
 }
 #estadisticas td{
 	width: 220px;

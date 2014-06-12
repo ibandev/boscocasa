@@ -40,6 +40,9 @@
 		{% endblock menu_lateral %}
 
 		{% block contenido %}
+		<div id="nuevo_articulo">
+			<a href="{{path('salesianos_admin_empresa_add')}}">Crear empresa</a>
+		</div>
 		<div id="empresas">
 			<div id="pagination_order">
 				Ordenar por: 
@@ -51,7 +54,23 @@
 			<ul class="big-image-list">
 			{% if pagination is not null %}
 				{% for empresa in pagination %}
-					{% if empresa.getNombre is not null %}
+					{% if empresa.getNombre is null %}
+				        <li class="candidato_mini">
+				        		<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">Nueva &middot; {{ empresa.getUsuario().getUsername() }}</a></div>
+				        		<div class="opciones">
+				        			<a href="{{path('salesianos_admin_empresa_validate', { 'id_empresa': empresa.getId() }) }}">
+				        				{% if empresa.getValida() %}Suspender{% else %}<span class="orange">Activar</span>{% endif %}
+				        			</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_edit', { 'id_empresa': empresa.getId() }) }}">Editar</a> / 
+				        			<a href="{{path('salesianos_admin_empresa_remove', { 'id_empresa': empresa.getId() }) }}">Eliminar</a>
+				        		</div>
+				        </li>
+				        <div style="display:none">
+				        	<div id="emp{{ empresa.getId() }}">
+				        		No hay información disponible.
+				        	</div>
+				        </div>
+				    {% else %}
 				        <li class="candidato_mini">
 				        		<div class="nombre"><a class="fancybox" href="#emp{{ empresa.getId() }}">{{ empresa.getNombre() }}</a></div>
 				        		<div class="opciones">

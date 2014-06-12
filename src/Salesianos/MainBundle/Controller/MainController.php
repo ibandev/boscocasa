@@ -42,7 +42,8 @@ class MainController extends Controller
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta');
         $query = $repository->createQueryBuilder('o')
                 ->orderBy('o.fecha_ini','DESC')
-                ->setMaxResults(3)              
+                ->where('o.visible = 1')
+                ->setMaxResults(4)              
                 ->getQuery();
         $ofertas = $query->getResult();
 

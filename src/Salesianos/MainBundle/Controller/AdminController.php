@@ -9,6 +9,7 @@ use Salesianos\MainBundle\Entity\Oferta;
 use Salesianos\MainBundle\Entity\Articulo;
 use Salesianos\MainBundle\Entity\Estudio;
 use Salesianos\MainBundle\Entity\Candidato;
+use Salesianos\MainBundle\Entity\Empresa;
 use Salesianos\MainBundle\Entity\Curriculum;
 use Salesianos\MainBundle\Entity\Experiencia;
 use Salesianos\MainBundle\Entity\Idioma;
@@ -123,21 +124,26 @@ class AdminController extends Controller
             ->add('Crear', 'submit')
             ->getForm();         
         
-        if($request->getMethod() == 'POST'){ 
+        if($request->getMethod() == 'POST'){
             $form->handleRequest($request);
             if($form->isValid()){
                 $data = $form->getData();
                 $userManager = $this->get('fos_user.user_manager');
                 $user = $userManager->createUser();
-                $user->setUsername($data['nombre']);
+                $user->setUsername($data['nif']);
                 $user->setEmail($data['email']);
                 $user->setPlainPassword($data['password']);
                 $user->addRole("ROLE_ALUMNO");
+                $user->setEnabled(true);
                 $candidato = new Candidato();
                 $candidato->setNombre('Nuevo Candidato');
                 $candidato->setUsuario($user);
+                $cv = new Curriculum();
+                $candidato->setCurriculum($cv);
+                $cv->setCandidato($candidato);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
+                $em->persist($cv);
                 $em->persist($candidato);
                 $em->flush();
                 return $this->redirect($this->generateUrl('salesianos_admin_candidatos'));
@@ -214,7 +220,8 @@ class AdminController extends Controller
         $form = $this->createFormBuilder()
             ->add('nombre', 'text')
             ->add('email', 'email')
-            ->add('password', 'textarea')
+            ->add('password', 'password')
+            ->add('Crear', 'submit')
             ->getForm();         
         $form->handleRequest($request);
 
@@ -227,9 +234,12 @@ class AdminController extends Controller
                 $user->setEmail($data['email']);
                 $user->setPlainPassword($data['password']);
                 $user->addRole("ROLE_EMPRESA");
-                $form->handleRequest($request);
+                $user->setEnabled(true);
+                $empresa = new Empresa();
+                $empresa->setUsuario($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
+                $em->persist($empresa);
                 $em->flush();
                 return $this->redirect($this->generateUrl('salesianos_admin_empresas'));
             }
