@@ -52,7 +52,7 @@ class Empresa
     protected $poblacion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Provincia", inversedBy="empresas")
+     * @ORM\ManyToOne(targetEntity="Provincia")
      * @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
      */ 
     protected $provincia;
