@@ -73,6 +73,7 @@ class LoginListener implements EventSubscriberInterface
                     $cadiz = $em->getRepository('SalesianosMainBundle:Provincia')->find(11);
                     
                     $candidato->setUsuario($user);
+                    $candidato->setEmail($user->getEmail());
                     $candidato->setProvincia($cadiz);
                     $candidato->setCurriculum($cv);
                     $cv->setCandidato($candidato);

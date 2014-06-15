@@ -30,41 +30,35 @@ class OfertasController extends Controller
     {
         $paginator  = $this->get('knp_paginator');
         $request = $this->getRequest();
-
         $form = $this->createForm(new BuscaOfertasFormType());
-
         $form->handleRequest($request);
-
         $repository = $this->getDoctrine()
                            ->getRepository('SalesianosMainBundle:Oferta');
         $query = null;
+        $fecha = new \DateTime('now');
 
 
         if ($form->isValid()) {
 
-            $where = false; // para controlar si ya se ha usado alguna condición en la consulta
             $datos = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $queryBuilder = $repository->createQueryBuilder('o');
             $queryBuilder->where('o.visible = 1');
-            $where = true;
+            $queryBuilder->andWhere('o.fecha_fin > :fecha_fin')->setParameter('fecha_fin', $fecha->format('Y-m-d'));
             if($datos['sector']!=null){
-                $queryBuilder->where('o.sector = :sector')->setParameter('sector', $datos['sector']);
-                $where = true;
+                $queryBuilder->andWhere('o.sector = :sector')->setParameter('sector', $datos['sector']);
             }
             if($datos['provincia']!=null){
-                if($where){
-                    $queryBuilder->andWhere('o.provincia = :provincia')->setParameter('provincia', $datos['provincia']);
-                }else{
-                    $queryBuilder->where('o.provincia = :provincia')->setParameter('provincia', $datos['provincia']);
-                    $where = true;
-                }                
+                    $queryBuilder->andWhere('o.provincia = :provincia')->setParameter('provincia', $datos['provincia']);              
             }
             $query = $queryBuilder->getQuery();
+
         }else{
-            $queryBuilder = $repository->createQueryBuilder('o')->where('o.visible = 1')->orderBy('o.fecha_ini', 'DESC');
+            $queryBuilder = $repository->createQueryBuilder('o')->where('o.visible = 1');
+            $queryBuilder->andWhere('o.fecha_fin > :fecha_fin')->setParameter('fecha_fin', $fecha->format('Y-m-d'));
             $query = $queryBuilder->getQuery();
         }
+
         $pagination = $paginator->paginate(
                 $query,
                 $this->get('request')
@@ -88,47 +82,19 @@ class OfertasController extends Controller
         if($user->hasRole("ROLE_ALUMNO")){
             $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Candidato');
             $candidato = $repository->findOneByUsuario($user);
+            $ofertas = $candidato->getOfertas();
         }else{
             $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Empresa');
             $empresa = $repository->findOneByUsuario($user);
+            $ofertas = $empresa->getOfertas();
         }
-
-        $request = $this->getRequest();
-        $form = $this->createForm(new BuscaOfertasFormType());
-        $form->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta');
-        
-        if ($form->isValid()) {
-            $datos = $form->getData();
-            $queryBuilder = $repository->createQueryBuilder('o');
-            $queryBuilder->where('o.empresa = :empresa')->setParameter('empresa', $empresa);
-            if($datos['sector']!=null){
-                $queryBuilder->andWhere('o.sector = :sector')->setParameter('sector', $datos['sector']);
-            }
-            if($datos['provincia']!=null){
-                $queryBuilder->andWhere('o.provincia = :provincia')->setParameter('provincia', $datos['provincia']);                
-            }
-            $queryBuilder->orderBy('o.fecha_fin','DESC');
-            $ofertas = $queryBuilder->getQuery();
-        }else{
-            if($user->hasRole("ROLE_ALUMNO")){
-                $ofertas = $candidato->getOfertas();
-            }else{
-                $ofertas = $empresa->getOfertas();
-            }
-        }
-
         $pagination = $paginator->paginate(
                 $ofertas,
                 $this->get('request')->query->get('page', 1)/*page number*/,
                 5/*limit per page*/
-            );
-
-
+        );
         return $this->render('SalesianosMainBundle:Main:ofertas.html.twig', array(
                 'pagination' => $pagination,
-                 'form' => $form->createView(),
                   'activo' => 'mias'
             ));
     }

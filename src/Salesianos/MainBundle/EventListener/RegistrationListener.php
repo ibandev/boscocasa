@@ -50,12 +50,12 @@ class RegistrationListener implements EventSubscriberInterface
     public function onRegistrationCompleted(FilterUserResponseEvent $event)
     {
         $user = $event->getUser();
-
         $em = $this->container->get('doctrine')->getEntityManager();
 
         $user->addRole("ROLE_EMPRESA");
         $empresa = new Empresa();
         $empresa->setUsuario($user);
+        $empresa->setEmail($user->getEmail());
         $cadiz = $em->getRepository('SalesianosMainBundle:Provincia')->find(11);
         $empresa->setProvincia($cadiz);
         $em->persist($empresa);

@@ -97,14 +97,18 @@ class AdminController extends Controller
     {
         $request = $this->getRequest();
         $candidato = $this->getDoctrine()->getRepository('SalesianosMainBundle:Candidato')->find($id_candidato);
+
         $form = $this->createForm(new CandidatoFormType(), $candidato);
         if($request->getMethod() == 'POST'){
 
             $form->handleRequest($request);
 
             if($form->isValid()){
+                $user = $candidato->getUsuario();
+                $user->setEmail($candidato->getEmail());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($candidato);
+                $em->persist($user);
                 $em->flush();
                 return $this->redirect($this->generateUrl('salesianos_admin_candidatos'));
             }
@@ -142,6 +146,7 @@ class AdminController extends Controller
                 $candidato->setCurriculum($cv);
                 $cv->setCandidato($candidato);
                 $em = $this->getDoctrine()->getManager();
+                $candidato->setEmail($data['email']);
                 $em->persist($user);
                 $em->persist($cv);
                 $em->persist($candidato);
@@ -202,9 +207,12 @@ class AdminController extends Controller
             $form->handleRequest($request);
 
             if($form->isValid()){
+                $user = $empresa->getUsuario();
+                $user->setEmail($empresa->getEmail());
                 $em = $this->getDoctrine()->getManager();
                 $empresa->upload();
                 $em->persist($empresa);
+                $em->persist($user);
                 $em->flush();
                 return $this->redirect($this->generateUrl('salesianos_admin_empresas'));
             }
@@ -237,6 +245,7 @@ class AdminController extends Controller
                 $user->setEnabled(true);
                 $empresa = new Empresa();
                 $empresa->setUsuario($user);
+                $empresa->setEmail($data['email']);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->persist($empresa);

@@ -38,7 +38,8 @@
 		{% endif %}
 	{% endif %}
 {% endif %}
-{% if activo != "nueva" %}
+{% if activo == "todas"  %}
+	{% form_theme form 'SalesianosMainBundle:Form:fields.html.twig' %}
 	<h3>Filtros de búsqueda</h3>
 	{{ form(form) }}
 {% endif %}

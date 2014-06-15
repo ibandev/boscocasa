@@ -38,11 +38,13 @@ class MainController extends Controller
 	
     public function indexAction()
     {
-        //Recupera las 3 últimas ofertas
+        //Recupera las 4 últimas ofertas
+        $fecha = new \DateTime('now');
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Oferta');
         $query = $repository->createQueryBuilder('o')
                 ->orderBy('o.fecha_ini','DESC')
                 ->where('o.visible = 1')
+                ->andWhere('o.fecha_fin > :fecha_fin')->setParameter('fecha_fin', $fecha->format('Y-m-d'))
                 ->setMaxResults(4)              
                 ->getQuery();
         $ofertas = $query->getResult();
@@ -92,7 +94,7 @@ class MainController extends Controller
         $form->handleRequest($request);
         $data = $form->getData();
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if($user != null){
+        if($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')){
             $username = $user->getUsername();
         }else{
             $username = "Sin loguear";
@@ -113,7 +115,6 @@ class MainController extends Controller
         return $this->render('SalesianosMainBundle:Main:mensaje.html.twig', array(
                     'mensaje' => 'Tu mensaje ha sido enviado. Contestaremos lo más rápido posible.'));
     }
-
 
     //Se encarga del cambio de contraseña del usuario
     public function miperfilAction(Request $request)
@@ -185,8 +186,10 @@ class MainController extends Controller
             $form->handleRequest($request);
 
             if($form->isValid()){
-                $em = $this->getDoctrine()->getManager();
+                $em = $this->getDoctrine()->getManager();                
                 $em->persist($candidato);
+                $user->setEmail($candidato->getEmail());
+                $em->persist($user);
                 $em->flush();
             }
         }
@@ -212,7 +215,10 @@ class MainController extends Controller
             if($form->isValid()){
                 $em = $this->getDoctrine()->getManager();
                 $empresa->upload();
+
                 $em->persist($empresa);
+                $user->setEmail($empresa->getEmail());
+                $em->persist($user);
                 $em->flush();
             }
         }
@@ -519,7 +525,7 @@ class MainController extends Controller
         $zip->open($zipPath.$zipName,  \ZipArchive::CREATE);
 
         foreach ($candidatos as $candidato) {
-            $path = 'cvs_'.$id_oferta.'/cv_'.$this->quitar_tildes($candidato->getApellidos()).', '.$this->quitar_tildes($candidato->getNombre()).'.pdf';
+            $path = 'candidatos/cvs_'.$id_oferta.'/cv_'.$this->quitar_tildes($candidato->getApellidos()).', '.$this->quitar_tildes($candidato->getNombre()).'.pdf';
             if($fs->exists($path)){
                $fs->remove($path); 
             }
@@ -545,32 +551,6 @@ class MainController extends Controller
         $response->headers->set('Content-Disposition', 'attachment;filename="'.$zipName.'"');
         $response->setContent($content);
         return $response;
-    }        
-
-    public function empresasAction()
-    {
-        return $this->render('SalesianosMainBundle:Main:empresas.html.twig');
-    }
-
-    public function blogAction()
-    {
-        return $this->render('SalesianosMainBundle:Main:blog.html.twig');
-    }
-
-    public function changePasswdAction(Request $request)
-    {
-        $changePasswordModel = new ChangePassword();
-        $form = $this->createForm(new ChangePasswordType(), $changePasswordModel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            return $this->redirect($this->generateUrl('change_passwd_success'));
-        }
-
-          return $this->render('SalesianosMainBundle:Main:miperfil.html.twig', array(
-              'form_pwd' => $form->createView(),
-          ));      
     }
 
     public function quitar_tildes($cadena) 
