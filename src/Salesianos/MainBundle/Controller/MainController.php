@@ -109,6 +109,7 @@ class MainController extends Controller
                     'mensaje' => $data['mensaje'])))
                 ->setContentType('text/html');
         $this->get('mailer')->send($mensaje);
+
         return $this->render('SalesianosMainBundle:Main:mensaje.html.twig', array(
                     'mensaje' => 'Tu mensaje ha sido enviado. Contestaremos lo más rápido posible.'));
     }
