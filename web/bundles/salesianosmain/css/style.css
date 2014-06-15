@@ -373,6 +373,7 @@ a.fancybox.oferta{
 
 #candidato .data{
 	font-size:0.85em;
+	max-width: 400px;
 }
 
 #candidato .titulo{
@@ -423,6 +424,7 @@ a.fancybox.oferta{
 
 #oferta .data{
 	font-size:0.8em;
+	max-width: 390px;
 }
 
 #oferta .data.large{

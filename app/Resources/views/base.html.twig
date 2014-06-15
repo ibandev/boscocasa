@@ -25,10 +25,6 @@
                             $('#ofertas').addClass('current-page-item');
                             return;
                         }
-                        // if($(location).attr('href').indexOf('empresas')>=0){
-                        //     $('#empresas').addClass('current-page-item');
-                        //     return;
-                        // }
                         if($(location).attr('href').indexOf('blog')>=0){
                             $('#blog').addClass('current-page-item');
                             return;
@@ -72,7 +68,6 @@
                                 <a id="inicio" href="{{ path('salesianos_main_homepage') }}">Inicio</a>
                                 <a id="perfil" href="{{ path('salesianos_main_miperfil') }}">Mi Perfil</a>
                                 <a id="ofertas" href="{{ path('salesianos_main_ofertas') }}">Ofertas</a>
-                                <!-- <a id="empresas" href="{{ path('salesianos_main_empresas') }}">Empresas</a> -->
                                 <a id="blog" href="{{ path('salesianos_main_blog') }}">Blog</a>                   
                                 <a id="contacto" href="{{ path('salesianos_main_contacto') }}">Contacto</a>                                
                                     {% if is_granted('ROLE_USER') %} 

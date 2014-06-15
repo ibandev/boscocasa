@@ -8,11 +8,11 @@ salesianos_main_miperfil:
 
 salesianos_main_datos_alumno:
     pattern:  /miperfil/datospersonales
-    defaults: { _controller: SalesianosMainBundle:Main:datosalumno }
+    defaults: { _controller: SalesianosMainBundle:Candidato:datosalumno }
 
 salesianos_main_datos_empresa:
     pattern:  /miperfil/datosempresa
-    defaults: { _controller: SalesianosMainBundle:Main:datosempresa }
+    defaults: { _controller: SalesianosMainBundle:Empresa:datosempresa }
 
 salesianos_main_nueva_empresa:
     pattern:  /nueva_empresa
@@ -20,35 +20,35 @@ salesianos_main_nueva_empresa:
 
 salesianos_main_cv:
     pattern:  /miperfil/cv
-    defaults: { _controller: SalesianosMainBundle:Main:cv }
+    defaults: { _controller: SalesianosMainBundle:Candidato:cv }
 
 salesianos_main_eliminarcv:
     pattern:  /miperfil/cv/eliminar/{tipo}/{id}
-    defaults: { _controller: SalesianosMainBundle:Main:eliminarcv }
+    defaults: { _controller: SalesianosMainBundle:Candidato:eliminarcv }
 
 salesianos_main_addcv:
     pattern:  /miperfil/cv/añadir/{tipo}
-    defaults: { _controller: SalesianosMainBundle:Main:addcv }
+    defaults: { _controller: SalesianosMainBundle:Candidato:addcv }
 
 salesianos_main_guardarestudio:
     pattern:  /miperfil/cv/estudio
-    defaults: { _controller: SalesianosMainBundle:Main:guardarestudio }
+    defaults: { _controller: SalesianosMainBundle:Candidato:guardarestudio }
 
 salesianos_main_guardaridioma:
     pattern:  /miperfil/cv/idioma
-    defaults: { _controller: SalesianosMainBundle:Main:guardaridioma }
+    defaults: { _controller: SalesianosMainBundle:Candidato:guardaridioma }
 
 salesianos_main_guardarexperiencia:
     pattern:  /miperfil/cv/experiencia
-    defaults: { _controller: SalesianosMainBundle:Main:guardarexperiencia }
+    defaults: { _controller: SalesianosMainBundle:Candidato:guardarexperiencia }
 
 salesianos_main_guardarconocimiento:
     pattern:  /miperfil/cv/conocimiento
-    defaults: { _controller: SalesianosMainBundle:Main:guardarconocimiento }
+    defaults: { _controller: SalesianosMainBundle:Candidato:guardarconocimiento }
 
 salesianos_main_guardarotrosdatos:
     pattern:  /miperfil/cv/otrosdatos
-    defaults: { _controller: SalesianosMainBundle:Main:guardarotrosdatos }
+    defaults: { _controller: SalesianosMainBundle:Candidato:guardarotrosdatos }
 
 salesianos_main_ofertas:
     pattern:  /ofertas
@@ -85,10 +85,6 @@ salesianos_main_nueva_oferta:
 salesianos_main_publicaroferta:
     pattern:  /publicaroferta
     defaults: { _controller: SalesianosMainBundle:Ofertas:publicaroferta }
-
-salesianos_main_empresas:
-    pattern:  /empresas
-    defaults: { _controller: SalesianosMainBundle:Main:empresas }
 
 salesianos_main_blog:
     pattern:  /blog
