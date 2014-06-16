@@ -62,9 +62,11 @@
 				        		{{ oferta.getPuesto() }}
 				        		</a></div>
 				        		<div class="opciones">
+				        			{% if not oferta.hasFinished() %}
 				        			<a href="{{path('salesianos_admin_oferta_estado', { 'id_oferta': oferta.getId() }) }}">
 				        				{% if oferta.getVisible() %}Ocultar{% else %}Publicar{% endif %}
 				        			</a> / 
+				        			{% endif %}
 				        			<a href="{{path('salesianos_admin_oferta_edit', { 'id_oferta': oferta.getId() }) }}">Editar</a> / 
 				        			<a href="{{path('salesianos_admin_oferta_remove', { 'id_oferta': oferta.getId() }) }}">Eliminar</a>
 				        		</div>
