@@ -72,7 +72,7 @@ class CandidatoController extends Controller
     }
 
     //Muestra el CV del candidato y permite modificarlo
-    public function cvAction()
+    public function CVAction()
     {
         
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -98,7 +98,7 @@ class CandidatoController extends Controller
             ));
     }
 
-    public function eliminarcvAction($tipo, $id)
+    public function eliminarCVAction($tipo, $id)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Candidato');
@@ -138,7 +138,7 @@ class CandidatoController extends Controller
         return $this->redirect($this->generateUrl('salesianos_main_cv'));
     }
 
-    public function addcvAction($tipo)
+    public function addCVAction($tipo)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $repository = $this->getDoctrine()->getRepository('SalesianosMainBundle:Candidato');

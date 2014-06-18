@@ -46,9 +46,11 @@
 				{{ knp_pagination_sortable(pagination, 'Fecha Inicio', 'o.fecha_ini') }} / 
 				{{ knp_pagination_sortable(pagination, 'Fecha Fin', 'o.fecha_fin') }} / 
 				{{ knp_pagination_sortable(pagination, 'Puesto', 'o.puesto') }}
+
 				<div class="count">
 				    {{ pagination.getTotalItemCount }} ofertas registradas
-				</div>		
+				</div>	
+					
 			</div>
 			<ul class="big-image-list">
 			{% if pagination is not null %}

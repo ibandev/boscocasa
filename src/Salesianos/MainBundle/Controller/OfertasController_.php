@@ -52,25 +52,13 @@ class OfertasController extends Controller
                     $queryBuilder->andWhere('o.provincia = :provincia')->setParameter('provincia', $datos['provincia']);              
             }
             $query = $queryBuilder->getQuery();
-            $pagination = $paginator->paginate(
-                    $query,
-                    $this->get('request')
-                        ->query
-                        ->get('page', 1)/*page number*/,
-                    999/*limit per page*/
-                );
 
-            return $this->render('SalesianosMainBundle:Main:ofertas.html.twig', array(
-                    'pagination' => $pagination,
-                     'form' => $form->createView(),
-                      'activo' => 'todas'
-                ));
+        }else{
+            $queryBuilder = $repository->createQueryBuilder('o')->where('o.visible = 1');
+            $queryBuilder->andWhere('o.fecha_fin > :fecha_fin')->setParameter('fecha_fin', $fecha->format('Y-m-d'));
+            $query = $queryBuilder->getQuery();
         }
-            
-        
-        $queryBuilder = $repository->createQueryBuilder('o')->where('o.visible = 1');
-        $queryBuilder->andWhere('o.fecha_fin > :fecha_fin')->setParameter('fecha_fin', $fecha->format('Y-m-d'));
-        $query = $queryBuilder->getQuery();
+
         $pagination = $paginator->paginate(
                 $query,
                 $this->get('request')
@@ -103,7 +91,7 @@ class OfertasController extends Controller
         $pagination = $paginator->paginate(
                 $ofertas,
                 $this->get('request')->query->get('page', 1)/*page number*/,
-                999/*limit per page*/
+                5/*limit per page*/
         );
         return $this->render('SalesianosMainBundle:Main:ofertas.html.twig', array(
                 'pagination' => $pagination,

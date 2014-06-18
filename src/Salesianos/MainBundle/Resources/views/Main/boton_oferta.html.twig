@@ -1,7 +1,7 @@
 {% if is_granted("ROLE_ADMIN") %}
 
 {% else %}
-	{% if oferta.hasFinished() %}	
+	{% if oferta.hasFinished() and not is_granted("ROLE_EMPRESA") %}	
 		<span class="right orange">Finalizada</span>
 	{% else %}	
 		{% if is_granted("ROLE_ALUMNO") %}

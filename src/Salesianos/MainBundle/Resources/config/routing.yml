@@ -68,11 +68,11 @@ salesianos_main_verinscritos:
 
 salesianos_main_descargarCV:
     pattern:  /oferta/{id_oferta}/candidato/{id_candidato}/descargar
-    defaults: { _controller: SalesianosMainBundle:Main:descargarCV }
+    defaults: { _controller: SalesianosMainBundle:Empresa:descargarCV }
 
 salesianos_main_descargartodosCV:
     pattern:  /oferta/{id_oferta}/descargar
-    defaults: { _controller: SalesianosMainBundle:Main:descargartodosCV }
+    defaults: { _controller: SalesianosMainBundle:Empresa:descargartodosCV }
 
 salesianos_main_misofertas:
     pattern:  /misofertas
